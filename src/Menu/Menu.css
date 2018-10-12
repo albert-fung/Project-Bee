@@ -20,7 +20,7 @@ Off-white#f8fafb
 #menu-container
 { z-index: 5;
   background-color: white;
-  position: fixed;
+  position: absolute;
   width:275px;
   height:100%;
   border-right:1px rgba(192,192,192,0.3) solid;
