@@ -18,7 +18,7 @@ Off-white#f8fafb
   color:#2f3542
 }
 #menu-container
-{   
+{ z-index: 5;
   background-color: white;
   position: fixed;
   width:275px;
