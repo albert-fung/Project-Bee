@@ -24,11 +24,6 @@ body,html,#root
   top:50px;
   display: block;
   margin:0 auto 30px auto;
-  background-color:#badc58;
-  width:350px;
-  height:350px;
-  border-radius:360px;
-  
 }
 #subtitle
 {
