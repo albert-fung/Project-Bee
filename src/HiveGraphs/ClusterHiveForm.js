@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default class ClusterHiveForm extends React.Component {
     constructor(props) {
@@ -9,14 +9,14 @@ export default class ClusterHiveForm extends React.Component {
 
     render() {
         return(
-            <form onSubmit={event => {
+            <form className="row-center" onSubmit={event => {
                 this.props.onSubmit(this.clusterId.current.value, this.hiveId.current.value);
                 event.preventDefault();
             }}>
                 <input ref={this.clusterId} type="text" placeholder="Cluster ID"/>
                 <input ref={this.hiveId} type="text" placeholder="Hive ID"/>
-                <input type="submit" value="Submit"/>
-                <button onClick={event => {
+                <input className="btn" type="submit" value="Submit"/>
+                <button className="btn" onClick={event => {
                     this.props.onSubmit("demoCluster", "demoHive");
                     event.preventDefault();
                 }}>Use Demo Data</button>

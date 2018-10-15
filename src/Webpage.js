@@ -1,6 +1,6 @@
-import React from 'react'
-import Menu from './Menu/Menu.js'
+import React from 'react';
 import HiveGraphs from './HiveGraphs/HiveGraphs.js'
+import NavBar from "./NavBar/NavBar";
 
 export default class Webpage extends React.Component
 {
@@ -9,11 +9,8 @@ export default class Webpage extends React.Component
     {
         return(
             <div>
-                <Menu id="menu"></Menu>
-                <i id="menu-icon" onClick={this.openMenu} className="fas fa-ellipsis-v"></i>
-                <div className="bee-container">
-                    <HiveGraphs/>
-                </div>
+                <NavBar/>
+                <HiveGraphs/>
             </div>
         );
     }

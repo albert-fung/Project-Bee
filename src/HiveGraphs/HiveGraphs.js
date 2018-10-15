@@ -45,7 +45,7 @@ export default class HiveGraphs extends React.Component {
         return(
             <div>
                 <ClusterHiveForm onSubmit = {this.updateGraphs}/>
-                <div className="row">
+                <div className="row-center">
                     <LineGraph title="Temperature" xAxisData={this.state.time.map(HiveGraphs.formatDateForDaily)} yAxisData={this.state.temperature}/>
                     <LineGraph title="Humidity" xAxisData={this.state.time.map(HiveGraphs.formatDateForDaily)} yAxisData={this.state.humidity}/>
                 </div>

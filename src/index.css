@@ -1,33 +1,34 @@
-body,html,#root
-{
-  background-color:#f8fafb;
-  margin:0;
-  width:100%;height:100%;
+body, html, #root {
+    background-color:#f8fafb;
+    margin:0;
+    font-family: 'Montserrat', sans-serif;
 }
-
-#menu-icon
-{
-  top:12px;
-  left:12px;
-  position: absolute;
-  font-size:30px;
+.text-center {
+   text-align: center;
 }
-#bee-img
-{ display:block;
-  margin-left:auto;
-  margin-right:auto;
-  width:300px;    
-  height:300px;
+.row-center {
+    display: flex;
+    justify-content: center;
 }
-.bee-container
-{ 
-  top:50px;
-  display: block;
-  margin:0 auto 30px auto;
+.btn {
+    background: #2f3542;
+    color: white;
+    padding: 10px 15px;
+    margin: 3px;
+    border: none;
+    border-radius: 1000px;
+    cursor: pointer;
 }
-#subtitle
-{
-  font-size:30px;
-  font-weight:bold;
-  text-align: center;
+input {
+    margin: 3px;
+    padding: 5px;
+}
+.orange {
+    color:#ffa502;
+}
+.white {
+    color:#f1f2f6;
+}
+.black {
+    color:#2f3542
 }

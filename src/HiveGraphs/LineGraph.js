@@ -23,10 +23,9 @@ export default class LineGraph extends React.Component {
         });
     };
     render() {
-        console.count("Render");
         return(
             <div className="graph">
-                <h2>{this.props.title}</h2>
+                <h2 className="text-center">{this.props.title}</h2>
                 <canvas ref={this.canvas} />
             </div>
         );
