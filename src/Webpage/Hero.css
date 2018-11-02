@@ -1,0 +1,30 @@
+#hero,#slider
+{ width:100%;height:70%;}
+
+.slide-1
+{ background-image:url(./carousel-images/Bee_1.jpeg);}
+.slide-2
+{ background-image:url(./carousel-images/Bee_2.jpeg);}
+.slide-3
+{ background-image:url(./carousel-images/Bee_3.jpeg);}
+.slide-4
+{ background-image:url(./carousel-images/Bee_4.jpeg);}
+
+.layer
+{ position:absolute;
+  top:0;left:0;
+  width: 100%;height: 100%;
+  background-color: rgba(0, 0,0, 0.4);
+}
+
+.carosuel-container
+{ position: relative;
+  height:100%;width:100%;
+  background-size: cover;
+  background-position:center center;
+  background-repeat:no-repeat; 
+}
+
+
+.slick-list,.slick-track,.slick-slide,.slick-slider,.slick-slide div
+{height:100%;}
