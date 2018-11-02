@@ -1,6 +1,8 @@
 import React from 'react';
 import './NavBar.css';
-
+/* TODO
+   Make Responsive
+*/
 
 export default class NavBar extends React.Component {
     render() {

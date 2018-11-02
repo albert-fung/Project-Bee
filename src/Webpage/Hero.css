@@ -1,6 +1,13 @@
 #hero,#slider
-{ width:100%;height:70%;}
-
+{ position: relative;
+  width:100%;height:70%;}
+#caption-container
+{ position: absolute;
+  z-index: 2;
+  color: white;
+  padding-left: 5vw;
+  width:40%;
+}
 .slide-1
 { background-image:url(./carousel-images/Bee_1.jpeg);}
 .slide-2
@@ -10,11 +17,11 @@
 .slide-4
 { background-image:url(./carousel-images/Bee_4.jpeg);}
 
-.layer
+.gray-layer
 { position:absolute;
   top:0;left:0;
   width: 100%;height: 100%;
-  background-color: rgba(0, 0,0, 0.4);
+  background-color: rgba(0, 0,0, 0.5);
 }
 
 .carosuel-container
@@ -25,6 +32,46 @@
   background-repeat:no-repeat; 
 }
 
-
 .slick-list,.slick-track,.slick-slide,.slick-slider,.slick-slide div
 {height:100%;}
+
+#about-container
+{ margin:30px auto;
+  width:80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-elements
+{ width:25vw;
+  text-align: center;
+  margin:0 30px 0 30px;
+}
+.icon-container
+{ padding-bottom:10px;
+  text-align: center;
+}
+.icon 
+{ color:rgba(0,0, 0, 0.4);
+  display: inline-block;
+  margin:0 auto;
+}
+.about-elements p
+{ font-size:14px;
+  line-height: 24px;
+  color:rgba(0, 0, 0, 0.5);
+}
+.about-elements h1
+{ font-size:20px;
+  margin:0;
+  font-weight:700;
+}
+
+@media only screen and (max-width: 1024px) {
+    #about-container
+    { display:block;}
+    .about-elements
+    { width:inherit;
+      margin:auto;
+    }
+}
