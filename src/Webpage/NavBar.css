@@ -15,6 +15,10 @@
     padding-left: 2rem;
     cursor: pointer;
 }
-.nav-bar > ul > li > .fas {
+.nav-element > span > i {
     padding-right: 0.5em;
+}
+.nav-element
+{ color:black;
+  text-decoration: none;
 }
