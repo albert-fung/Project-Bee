@@ -3,6 +3,7 @@ body, html, #root,#front-page,#landing-page,#Router-container {
     background-color:#f8fafb;
     margin:0;
     font-family: 'Montserrat', sans-serif;
+    position: relative;
 }
 .text-center {
    text-align: center;
