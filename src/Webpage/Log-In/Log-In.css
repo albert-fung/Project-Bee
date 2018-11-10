@@ -41,9 +41,6 @@
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
 }
-input:focus,button:focus{
-    outline:none;
-}
 #Input-Container > input:focus,#Input-Container > button:focus {
   border-radius: 50px;
   box-shadow: 0 0 5px rgb(35, 89, 236);
@@ -88,6 +85,7 @@ hr {
   transform: translate(-50%, -50%);
 }
 .round-loginbtn:focus{
+  outline: none;
   border-radius: 50%;
   box-shadow: 0 0 5px rgb(35, 89, 236);
   border: 2px solid rgba(25, 89, 236, 1);

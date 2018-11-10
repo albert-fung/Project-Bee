@@ -1,8 +1,10 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, Link } from 'react-router-dom';
+
 import './Log-In.css';
 import ReactForm from "../../Shared/ReactForm";
-const auth = require("../../Authentication");
+import SignIn from '../SignUp/SignUp';
+import * as auth from "../../Authentication";
 
 
 export default class LogIn extends ReactForm {
@@ -49,14 +51,18 @@ export default class LogIn extends ReactForm {
             {loginError}
             <input type="submit" value="Login"/>
           </form>
+          <hr/>
           <div id="other-login">
-            <hr/>
             <div id="round-login-group">
               <RoundButton symbol="fa-google" name="G+"/>
               <RoundButton symbol="fa-facebook" name="FB"/>
               <RoundButton symbol="fa-twitter" name="Twitter"/>
               <RoundButton symbol="fa-github" name="GitHub"/>
             </div>
+          </div>
+          <div>
+            Don't have an account?
+            <Link to="/Sign-Up"> Create one </Link>
           </div>
         </div>
       </div>
