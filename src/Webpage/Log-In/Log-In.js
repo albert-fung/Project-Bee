@@ -1,20 +1,34 @@
 import React from 'react';
 import './Log-In.css';
 import ReactForm from "../../Shared/ReactForm";
+const auth = require("../../Authentication");
+
+const INITIAL_STATE = {
+  email: "",
+  password: "",
+  error: null,
+}
+const byPropKey = (propertyName, value) =>() =>({
+  [propertyName]: value,
+});
 
 export default class LogIn extends ReactForm {
   constructor(props) {
     super(props);
-    this.state = {
-      email: "",
-      password: ""
-    };
+    this.state = {...INITIAL_STATE};
     this.login = this.login.bind(this);
   }
 
   async login(event) {
-    console.log(this.state);
     event.preventDefault();
+    try {
+      await auth.doSignInWithEmailAndPassword(this.state.email, this.state.password);
+      this.setState({...INITIAL_STATE});
+      alert("this is working!")
+    } catch (error) {
+      console.error("Failed to login", error);
+      this.setState(byPropKey('error',error))
+    }
   }
 
   render() {
