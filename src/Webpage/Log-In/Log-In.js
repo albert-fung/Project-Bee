@@ -1,21 +1,19 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import './Log-In.css';
 import ReactForm from "../../Shared/ReactForm";
 const auth = require("../../Authentication");
 
-const INITIAL_STATE = {
-  email: "",
-  password: "",
-  error: null,
-}
-const byPropKey = (propertyName, value) =>() =>({
-  [propertyName]: value,
-});
 
 export default class LogIn extends ReactForm {
   constructor(props) {
     super(props);
-    this.state = {...INITIAL_STATE};
+    this.state = {
+      email: "",
+      password: "",
+      loggedIn: false,
+      error: null
+    };
     this.login = this.login.bind(this);
   }
 
@@ -23,17 +21,24 @@ export default class LogIn extends ReactForm {
     event.preventDefault();
     try {
       await auth.doSignInWithEmailAndPassword(this.state.email, this.state.password);
-      this.setState({...INITIAL_STATE});
-      alert("this is working!")
+      this.setState({loggedIn: true});
     } catch (error) {
-      console.error("Failed to login", error);
-      this.setState(byPropKey('error',error))
+      this.setState({error});
     }
   }
 
   render() {
+    let loginError;
+    let redirect;
+    if (this.state.error) {
+      loginError = <span>Invalid username/password</span>
+    }
+    if (this.state.loggedIn) {
+      redirect = <Redirect to="My-Hive"/>
+    }
     return (
       <div id="Login-page">
+        {redirect}
         <div id="Input-Container">
           <h1>Login</h1>
           <form onSubmit={this.login}>
@@ -41,6 +46,7 @@ export default class LogIn extends ReactForm {
                    placeholder="Email"/>
             <input type="password" name="password" value={this.state.password}
                    onChange={this.handleInputChange} placeholder="Password"/>
+            {loginError}
             <input type="submit" value="Login"/>
           </form>
           <div id="other-login">
