@@ -1,19 +1,38 @@
 import React from 'react';
 import './Log-In.css';
+import { fadeInDown } from 'react-animations';
+import Radium, {StyleRoot} from 'radium';
+
+const styles = {
+  /* Animation for stuttering Log-in-elements */
+   input_animation:{
+    animation: 'x 1.5s',
+    animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+  },
+  logbtn_animation:{
+    animation: 'x 2s',
+    animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+  },
+  vendorbtn_animation:{
+    animation: 'x 2.5s',
+    animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+  }
+}
 
 export default class LogIn extends React.Component
 {
     render()
     {return(
+      <StyleRoot>
           <div id="Login-page">
             <div id="Input-Container">
               <h1>Log in</h1>
-              <input id="Email" placeholder="Email"></input>
-              <input id="Password" placeholder="Password"></input>  
-              <button type="button" class="btn">Log in</button>
+              <input style={styles.input_animation} id="Email" placeholder="Email"></input>
+              <input style={styles.input_animation} id="Password" placeholder="Password"></input>  
+              <button style={styles.logbtn_animation} type="button" class="btn">Log in</button>
               <div id="other-login">
                 <hr></hr>
-                <div id="round-logingroup">
+                <div style={styles.vendorbtn_animation} id="round-logingroup">
                   <RoundButton symbol="fa-google" name="G+"></RoundButton>
                   <RoundButton symbol="fa-facebook" name="FB"></RoundButton>
                   <RoundButton symbol="fa-twitter" name="Twitter"></RoundButton>
@@ -22,6 +41,7 @@ export default class LogIn extends React.Component
               </div> 
             </div>        
           </div>
+        </StyleRoot>
     )}
 }
 class RoundButton extends React.Component
