@@ -1,10 +1,27 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
-
 import './Log-In.css';
+import { fadeInDown } from 'react-animations';
+import Radium, {StyleRoot} from 'radium';
 import ReactForm from "../../Shared/ReactForm";
 import SignIn from '../SignUp/SignUp';
 import * as auth from "../../Authentication";
+
+const styles = {
+  /* Animation for stuttering Log-in-elements */
+   input_animation:{
+    animation: 'x 1.5s',
+    animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+  },
+  logbtn_animation:{
+    animation: 'x 2s',
+    animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+  },
+  vendorbtn_animation:{
+    animation: 'x 2.5s',
+    animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+  }
+};
 
 
 export default class LogIn extends ReactForm {
@@ -39,33 +56,39 @@ export default class LogIn extends ReactForm {
       redirect = <Redirect to="My-Hive"/>
     }
     return (
-      <div id="Login-page">
-        {redirect}
-        <div id="Input-Container">
-          <h1>Login</h1>
-          <form onSubmit={this.login}>
-            <input type="email" name="email" value={this.state.email} onChange={this.handleInputChange}
-                   placeholder="Email"/>
-            <input type="password" name="password" value={this.state.password}
-                   onChange={this.handleInputChange} placeholder="Password"/>
-            {loginError}
-            <input type="submit" value="Login"/>
-          </form>
-          <hr/>
-          <div id="other-login">
-            <div id="round-login-group">
-              <RoundButton symbol="fa-google" name="G+"/>
-              <RoundButton symbol="fa-facebook" name="FB"/>
-              <RoundButton symbol="fa-twitter" name="Twitter"/>
-              <RoundButton symbol="fa-github" name="GitHub"/>
+      <StyleRoot>
+        <div id="Login-page">
+          {redirect}
+          <div id="Input-Container">
+            <h1>Login</h1>
+            <form onSubmit={this.login}>
+              <input type="email" name="email" value={this.state.email} onChange={this.handleInputChange}
+                     placeholder="Email"
+                     style={styles.input_animation}/>
+              <input type="password" name="password" value={this.state.password}
+                     onChange={this.handleInputChange}
+                     placeholder="Password"
+                     style={styles.input_animation}/>
+              {loginError}
+              <input type="submit" value="Login"
+                     style={styles.logbtn_animation}/>
+            </form>
+            <hr/>
+            <div id="other-login">
+              <div style={styles.vendorbtn_animation} id="round-logingroup">
+                <RoundButton symbol="fa-google" name="G+"/>
+                <RoundButton symbol="fa-facebook" name="FB"/>
+                <RoundButton symbol="fa-twitter" name="Twitter"/>
+                <RoundButton symbol="fa-github" name="GitHub"/>
+              </div>
+            </div>
+            <div>
+              Don't have an account?
+              <Link to="/Sign-Up"> Create one </Link>
             </div>
           </div>
-          <div>
-            Don't have an account?
-            <Link to="/Sign-Up"> Create one </Link>
-          </div>
         </div>
-      </div>
+      </StyleRoot>
     )
   }
 }
