@@ -17,13 +17,25 @@ export default class WebpageContainer extends React.Component {
               <h1 className="text-center"><span className="black">Project</span><span className="orange">Bee</span></h1>
               <ul className="text-right">
                 <li><Link className="nav-element" to="/"><span><i className="fas fa-home"/>Home</span></Link></li>
-                <li><Link className="nav-element" to="/My-Hive"><span><i
-                  className="fas fa-flask"/>My Hives</span></Link></li>
-                <li><Link className="nav-element" to="/Public-Data"><span><i
-                  className="fas fa-users"/>Public Data</span></Link></li>
-                <li><Link className="nav-element" to="/Open-Source"><span><i className="fas fa-code"/>Open Source</span></Link>
+                <li>
+                  <Link className="nav-element" to="/My-Hive">
+                    <span><i className="fas fa-flask"/>My Hives</span>
+                  </Link>
                 </li>
-                <li><Link className="nav-element" to="/Log-In"><span><i className="fas fa-lock"/>Login</span></Link>
+                <li>
+                  <Link className="nav-element" to="/Public-Data">
+                    <span><i className="fas fa-users"/>Public Data</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link className="nav-element" to="/Open-Source">
+                    <span><i className="fas fa-code"/>Open Source</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link className="nav-element" to="/Log-In">
+                    <span><i className="fas fa-lock"/>Login</span>
+                  </Link>
                 </li>
                 <li className="displaynone nav-element"><span><i className="fas fa-lock-open"/>Log out</span></li>
               </ul>
