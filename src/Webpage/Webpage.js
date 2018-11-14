@@ -25,7 +25,7 @@ export default class WebpageContainer extends React.Component {
                 </li>
                 <li>
                   <Link className="nav-element" to="/My-Clusters">
-                    /* Todo: unique icon for clusters */
+                    {/* Todo: unique icon for clusters */}
                     <span><i className="fas fa-flask"/>My Clusters</span>
                   </Link>
                 </li>
