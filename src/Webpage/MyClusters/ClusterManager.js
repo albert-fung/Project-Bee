@@ -1,5 +1,6 @@
 import React from "react";
 import {firestore} from "../../Firebase";
+import SingleInputForm from "../../Shared/SingleInputForm";
 
 
 class HiveBadge extends React.Component {
@@ -100,7 +101,9 @@ export default class ClusterManager extends React.Component {
             <ul className="col-md-6">
               {ClusterManager.renderHiveList(this.props.hives)}
               <li>
-                <button className="btn">Add Hive</button>
+                <SingleInputForm label="+ Add Hive">
+                  <input type="text" placeholder="Hive Name" maxLength="100"/>
+                </SingleInputForm>
               </li>
             </ul>
           </div>
@@ -112,7 +115,9 @@ export default class ClusterManager extends React.Component {
                   {this.formatOwner(ownerId)}
                 </li>))}
               <li>
-                <button className="btn">Add Owner</button>
+                <SingleInputForm label="+ Add Owner">
+                  <input type="email"/>
+                </SingleInputForm>
               </li>
             </ul>
           </div>
