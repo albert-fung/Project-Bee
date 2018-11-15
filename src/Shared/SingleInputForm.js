@@ -13,20 +13,24 @@ export default class SingleInputForm extends ReactForm {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     if (this.props.onSubmit) {
       this.props.onSubmit(this.state.value);
     }
-    event.preventDefault();
-    this.setState({open:false, value: ""});
+
+    this.setState({open: false, value: ""});
+    return false;
+
   }
 
   renderInput() {
     return React.cloneElement(
       React.Children.only(this.props.children), {
-      name: "value",
-      value: this.state.value,
-      onChange: this.handleInputChange
-    });
+        required: true,
+        name: "value",
+        value: this.state.value,
+        onChange: this.handleInputChange
+      });
   }
 
   render() {
@@ -44,7 +48,7 @@ export default class SingleInputForm extends ReactForm {
             type="reset"
             className="btn"
             aria-label="Cancel"
-            onClick={() => this.setState({open:false})}>
+            onClick={() => this.setState({open: false, value: ""})}>
             <i className="fas fa-times"/>
           </button>
         </form>
