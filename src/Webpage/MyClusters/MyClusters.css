@@ -5,6 +5,7 @@
 
 .cluster-manager {
     box-shadow: 2px 2px 5px rgba(20,20,20,.2);
+    margin-bottom: 40px;
 }
 
 .cluster-manager__heading {

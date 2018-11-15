@@ -18,6 +18,7 @@ export default class ClusterManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {users: {}};
+    this.addHive = this.addHive.bind(this);
   }
 
 
@@ -50,6 +51,16 @@ export default class ClusterManager extends React.Component {
         }
       });
     });
+  }
+
+  async addHive(name) {
+    if (!this.props.id) {
+      throw new Error("Cluster missing an ID");
+    }
+    const hiveSnapshot = await firestore.collection("measurements").doc(this.props.id).collection("hives").add({});
+    console.log(hiveSnapshot.id);
+    const path = `hives.${hiveSnapshot.id}`;
+    await firestore.collection("cluster").doc(this.props.id).update({[path]: {name, public: true}});
   }
 
   render() {
@@ -100,12 +111,11 @@ export default class ClusterManager extends React.Component {
             <h3 className="col-md-6 cluster-manager__subheading">Hives:</h3>
             <ul className="col-md-6">
               {ClusterManager.renderHiveList(this.props.hives)}
-              <li>
-                <SingleInputForm label="+ Add Hive">
-                  <input type="text" placeholder="Hive Name" maxLength="100"/>
-                </SingleInputForm>
-              </li>
             </ul>
+
+            <SingleInputForm className="col-xs-12" label="+ Add Hive" onSubmit={this.addHive}>
+              <input type="text" placeholder="Hive Name" maxLength="100" autoComplete="off"/>
+            </SingleInputForm>
           </div>
           <div className="row col-sm-4">
             <h3 className="col-md-6 cluster-manager__subheading">Owners:</h3>
@@ -116,7 +126,7 @@ export default class ClusterManager extends React.Component {
                 </li>))}
               <li>
                 <SingleInputForm label="+ Add Owner">
-                  <input type="email"/>
+                  <input type="email" autoComplete="email"/>
                 </SingleInputForm>
               </li>
             </ul>
