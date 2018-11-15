@@ -1,4 +1,4 @@
-.cluster-manager__heading {
+.cluster-manager__subheading {
     text-align: left;
     margin-top: 0;
 }
@@ -7,8 +7,16 @@
     box-shadow: 2px 2px 5px rgba(20,20,20,.2);
 }
 
+.cluster-manager__heading {
+    margin-top: 20px;
+}
+
+.cluster-manager__heading-buttons {
+    font-size: large;
+}
+
 @media (min-width: 992px) {
-    .cluster-manager__heading {
+    .cluster-manager__subheading {
         text-align: right;
     }
 }

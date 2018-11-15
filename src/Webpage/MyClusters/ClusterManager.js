@@ -54,10 +54,49 @@ export default class ClusterManager extends React.Component {
   render() {
     if (this.props) {
       return (<div className="container-fluid cluster-manager">
-        <h2>{this.props.name}</h2>
+        <div className="row">
+          <h2 className="col-xs-8 cluster-manager__heading">
+            {this.props.name}
+          </h2>
+          <div className="col-xs-4 cluster-manager__heading cluster-manager__heading-buttons">
+            <button className="pull-right icon-button" aria-label="Show on map">
+              <i className="fas fa-map-marked"/>
+            </button>
+          </div>
+        </div>
         <div className="row container-fluid">
-          <div className="row col-sm-6">
-            <h3 className="col-md-6 cluster-manager__heading">Hives:</h3>
+
+          <div className="row col-sm-4">
+            <h3 className="col-md-6 cluster-manager__subheading">Location:</h3>
+            <ul className="col-md-6">
+              <li>
+                Ottawa
+              </li>
+              <li>
+                Ontario
+              </li>
+              <li>
+                Canada
+              </li>
+              <li>
+                North America
+              </li>
+              <li>
+                Earth
+              </li>
+              <li>
+                Sol
+              </li>
+              <li>
+                Milky Way
+              </li>
+              <li>
+                Cluster e289
+              </li>
+            </ul>
+          </div>
+          <div className="row col-sm-4">
+            <h3 className="col-md-6 cluster-manager__subheading">Hives:</h3>
             <ul className="col-md-6">
               {ClusterManager.renderHiveList(this.props.hives)}
               <li>
@@ -65,8 +104,8 @@ export default class ClusterManager extends React.Component {
               </li>
             </ul>
           </div>
-          <div className="row col-sm-6">
-            <h3 className="col-md-6 cluster-manager__heading">Owners:</h3>
+          <div className="row col-sm-4">
+            <h3 className="col-md-6 cluster-manager__subheading">Owners:</h3>
             <ul className="col-md-6">
               {this.props.owners.map(ownerId => (
                 <li key={ownerId}>

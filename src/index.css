@@ -19,6 +19,13 @@ body, html, #root,#front-page,#landing-page,#Router-container {
   cursor: pointer;
     -moz-outline-radius: 1000px;
 }
+.icon-button {
+    background: none;
+    border: none;
+}
+ul {
+    list-style: none;
+}
 input 
 { margin: 3px;
   padding: 5px;
