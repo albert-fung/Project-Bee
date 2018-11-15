@@ -5,12 +5,11 @@ import {firestore} from "../../Firebase";
 class HiveBadge extends React.Component {
   render() {
     return (
-      <p className={this.props.public ? "public" : "private"} >
+      <p className={this.props.public ? "public" : "private"}>
         {this.props.name}
       </p>);
   }
 }
-
 
 
 export default class ClusterManager extends React.Component {
@@ -28,11 +27,12 @@ export default class ClusterManager extends React.Component {
   }
 
 
-
   formatOwner(ownerId) {
     if (this.state.users[ownerId]) {
       const user = this.state.users[ownerId];
       return `${user.name}(${user.email})`;
+    } else {
+      return "Loading...";
     }
   }
 
@@ -53,26 +53,30 @@ export default class ClusterManager extends React.Component {
 
   render() {
     if (this.props) {
-      return (<div>
+      return (<div className="container-fluid cluster-manager">
         <h2>{this.props.name}</h2>
-        <div>
-          <h3>Hives:</h3>
-          <ul>
-            {ClusterManager.renderHiveList(this.props.hives)}
-            <li>
-              <button>Add Hive</button>
-            </li>
-          </ul>
-          <h3>Owners:</h3>
-          <ul>
-            {this.props.owners.map(ownerId => (
-              <li key={ownerId}>
-                {this.formatOwner(ownerId)}
-              </li>))}
-            <li>
-              <button>Add Owner</button>
-            </li>
-          </ul>
+        <div className="row container-fluid">
+          <div className="row col-sm-6">
+            <h3 className="col-md-6 cluster-manager__heading">Hives:</h3>
+            <ul className="col-md-6">
+              {ClusterManager.renderHiveList(this.props.hives)}
+              <li>
+                <button className="btn">Add Hive</button>
+              </li>
+            </ul>
+          </div>
+          <div className="row col-sm-6">
+            <h3 className="col-md-6 cluster-manager__heading">Owners:</h3>
+            <ul className="col-md-6">
+              {this.props.owners.map(ownerId => (
+                <li key={ownerId}>
+                  {this.formatOwner(ownerId)}
+                </li>))}
+              <li>
+                <button className="btn">Add Owner</button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>);
     } else {

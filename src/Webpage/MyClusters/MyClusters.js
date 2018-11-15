@@ -1,12 +1,13 @@
 import React from "react";
 import ClusterManager from "./ClusterManager";
 import {firestore, auth} from '../../Firebase';
+import "./MyClusters.css";
 
 export default class MyClusters extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {clusters: []};
+    this.state = {clusters: [], loggedIn: false, error: null};
   }
 
   static snapToCluster(snap) {
@@ -23,6 +24,8 @@ export default class MyClusters extends React.Component {
             .get();
           const clusters = queryResult.docs.map(MyClusters.snapToCluster);
           this.setState({clusters});
+        } else {
+          this.setState({error: "Not logged in"});
         }
       } else {
         this.setState({loggedIn: false})
@@ -33,19 +36,22 @@ export default class MyClusters extends React.Component {
 
 
   render() {
-    if (this.state.loggedIn) {
+    if (this.state.error) {
+      return (<main>{this.state.error}</main>)
+    } else if (!this.state.loggedIn) {
+      return (<main>Loading...</main>)
+    } else {
       return (
         <main>
-          <div>
+          <div className="container">
             {this.state.clusters.map(cluster => <ClusterManager key={cluster.id} {...cluster}/>)}
           </div>
-          <button>Add Cluster</button>
+          <hr/>
+          <div className="row-center">
+            <button className="btn">+ Add Cluster</button>
+          </div>
         </main>
       );
-    } else {
-      return (<main>
-        loading
-      </main>);
     }
   }
 }
