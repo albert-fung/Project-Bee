@@ -43,10 +43,10 @@ export default class ClusterManager extends React.Component {
   }
 
   static async userExists(email) {
-    const users = await firestore.collection("users")
-      .where("email", "==", email)
+    const user = await firestore.collection("users")
+      .doc(email)
       .get();
-    return users.docs.length > 0;
+    return user.exists;
   }
 
   async addOwner(email) {
