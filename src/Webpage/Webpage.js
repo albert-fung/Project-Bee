@@ -37,7 +37,7 @@ export default class WebpageContainer extends React.Component {
     auth.onAuthStateChanged(user => {
       if (user) {
         this.setState({user});
-        firestore.collection("cluster")
+        firestore.collection("clusters")
           .where("owners", "array-contains", user.email)
           .onSnapshot(this.onClustersUpdated);
       } else {

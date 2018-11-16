@@ -3,6 +3,7 @@ import './SignUp.css';
 import ReactForm from "../../Shared/ReactForm";
 import * as auth from "../../Authentication";
 import {Link, Redirect} from "react-router-dom";
+import {firestore} from "../../Firebase";
 
 class SignUp extends ReactForm {
   constructor(props) {
@@ -22,6 +23,11 @@ class SignUp extends ReactForm {
     event.preventDefault();
     try {
       await auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.password);
+      const userInfo = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName
+      };
+      await firestore.collection("users").doc(this.state.email).set(userInfo);
       this.setState({accountCreated: true});
     } catch (error) {
       this.setState({error});

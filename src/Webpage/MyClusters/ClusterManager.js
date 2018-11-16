@@ -37,7 +37,7 @@ export default class ClusterManager extends React.Component {
       .collection("hives")
       .add({});
     const path = `hives.${hiveSnapshot.id}`;
-    await firestore.collection("cluster")
+    await firestore.collection("clusters")
       .doc(this.props.id)
       .update({[path]: {name, public: true}});
   }
@@ -55,7 +55,7 @@ export default class ClusterManager extends React.Component {
       throw new Error("No owner with that email address");
     } else {
       // Add them to the list
-      await firestore.collection("cluster")
+      await firestore.collection("clusters")
         .doc(this.props.id)
         .update({owners: fireFieldValue.arrayUnion(email)});
     }

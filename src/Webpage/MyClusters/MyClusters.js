@@ -15,7 +15,7 @@ export default class MyClusters extends React.Component {
     if (!user) {
       throw new Error("Must be logged in to create clusters");
     }
-    const cluster = await firestore.collection("cluster").add({
+    const cluster = await firestore.collection("clusters").add({
       name,
       owners: [user.email],
       hives: []
