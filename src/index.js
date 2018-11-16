@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import WebpageContainer from './Webpage/Webpage.js'
 import './index.css'
+import './bootstrap-grid.css'
 
 ReactDOM.render(<WebpageContainer/>, document.getElementById('root'));
 

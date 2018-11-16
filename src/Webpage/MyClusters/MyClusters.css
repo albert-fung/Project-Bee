@@ -1,0 +1,30 @@
+.cluster-manager__subheading {
+    text-align: left;
+    margin-top: 0;
+}
+.cluster-manager {
+    box-shadow: 2px 2px 5px rgba(20,20,20,.2);
+    margin-bottom: 40px;
+}
+.cluster-manager__heading {
+    margin-top: 20px;
+}
+.cluster-manager__heading-buttons {
+    font-size: large;
+}
+@media (min-width: 992px) {
+    .cluster-manager__subheading {
+        text-align: right;
+    }
+}
+.hive-badge {
+    cursor: pointer;
+    user-select: none;
+}
+
+.hive--public::after {
+    content: "🐝";
+}
+.hive--private::after {
+    content: "💩";
+}

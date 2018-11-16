@@ -5,9 +5,6 @@ body, html, #root,#front-page,#landing-page,#Router-container {
     font-family: 'Montserrat', sans-serif;
     position: relative;
 }
-.text-center {
-   text-align: center;
-}
 .row-center 
 { display: flex;
   justify-content: center;
@@ -15,11 +12,19 @@ body, html, #root,#front-page,#landing-page,#Router-container {
 .btn 
 { background: #2f3542;
   color: white;
-  padding: 10px 15px;
+  padding: 5px 10px;
   margin: 3px;
   border: none;
   border-radius: 1000px;
   cursor: pointer;
+    -moz-outline-radius: 1000px;
+}
+.icon-button {
+    background: none;
+    border: none;
+}
+ul {
+    list-style: none;
 }
 input 
 { margin: 3px;
