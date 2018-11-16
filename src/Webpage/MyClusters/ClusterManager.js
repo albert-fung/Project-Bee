@@ -5,8 +5,9 @@ import SingleInputForm from "../../Shared/SingleInputForm";
 
 class HiveBadge extends React.Component {
   render() {
+    const publicClass = this.props.public ? "hive--public" : "hive--private";
     return (
-      <p className={this.props.public ? "public" : "private"}>
+      <p className={publicClass + " hive-badge"}>
         {this.props.name}
       </p>);
   }
@@ -20,7 +21,6 @@ export default class ClusterManager extends React.Component {
     this.addHive = this.addHive.bind(this);
     this.addOwner = this.addOwner.bind(this);
   }
-
 
   static renderHiveList(hives) {
     return Object.entries(hives)
