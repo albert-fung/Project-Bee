@@ -58,7 +58,6 @@ export default class ClusterManager extends React.Component {
       throw new Error("Cluster missing an ID");
     }
     const hiveSnapshot = await firestore.collection("measurements").doc(this.props.id).collection("hives").add({});
-    console.log(hiveSnapshot.id);
     const path = `hives.${hiveSnapshot.id}`;
     await firestore.collection("cluster").doc(this.props.id).update({[path]: {name, public: true}});
   }
@@ -93,30 +92,20 @@ export default class ClusterManager extends React.Component {
               <li>
                 North America
               </li>
-              <li>
-                Earth
-              </li>
-              <li>
-                Sol
-              </li>
-              <li>
-                Milky Way
-              </li>
-              <li>
-                Cluster e289
-              </li>
             </ul>
           </div>
           <div className="row col-sm-4">
             <h3 className="col-md-6 cluster-manager__subheading">Hives:</h3>
             <ul className="col-md-6">
               {ClusterManager.renderHiveList(this.props.hives)}
+              <li>
+                <SingleInputForm label="+ Add Hive" onSubmit={this.addHive}>
+                  <input type="text" placeholder="Hive Name" maxLength="100" autoComplete="off"/>
+                </SingleInputForm>
+              </li>
             </ul>
-
-            <SingleInputForm className="col-xs-12" label="+ Add Hive" onSubmit={this.addHive}>
-              <input type="text" placeholder="Hive Name" maxLength="100" autoComplete="off"/>
-            </SingleInputForm>
           </div>
+
           <div className="row col-sm-4">
             <h3 className="col-md-6 cluster-manager__subheading">Owners:</h3>
             <ul className="col-md-6">

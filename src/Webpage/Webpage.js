@@ -5,9 +5,47 @@ import LogIn from "./Log-In/Log-In";
 import SignUp from "./SignUp/SignUp";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
+import {auth, firestore} from "../Firebase";
 
 /*TODO: MAKE NAVBAR RESPONSIVE  */
 export default class WebpageContainer extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      user: null,
+      clusters: []
+    };
+    this.logOut = this.logOut.bind(this);
+    this.onClustersUpdated = this.onClustersUpdated.bind(this);
+  }
+
+  async logOut() {
+    await auth.signOut();
+  }
+
+  onClustersUpdated(snapshot) {
+    const clusters = snapshot.docs.map(snap => ({
+      id: snap.id,
+      ...snap.data()
+    }));
+    this.setState({clusters});
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        this.setState({user});
+        firestore.collection("cluster")
+          .where("owners", "array-contains", user.uid)
+          .onSnapshot(this.onClustersUpdated);
+      } else {
+        this.setState({user: null})
+      }
+    });
+  }
+
   render() {
     return (
       <div id="front-page">
@@ -44,13 +82,18 @@ export default class WebpageContainer extends React.Component {
                     <span><i className="fas fa-lock"/>Login</span>
                   </Link>
                 </li>
+                <li>
+                  <button className="nav-element" onClick={this.logOut}>
+                    <span><i className="fas fa-lock"/>Logout</span>
+                  </button>
+                </li>
                 <li className="displaynone nav-element"><span><i className="fas fa-lock-open"/>Log out</span></li>
               </ul>
             </nav>
             {/*Routes that the above links point to TODO complete three other pages and connect them */}
             <Route path="/" exact={true} component={LandingPage}/>
             <Route path="/My-Hive" render={() => <h1>RESVERED FOR MY-HIVE PAGE</h1>}/>
-            <Route path="/My-Clusters" component={MyClusters}/>
+            <Route path="/My-Clusters" render={() => <MyClusters clusters={this.state.clusters}/>}/>
             <Route path="/Public-Data" render={() => <h1>RESERVERED FOR PUBLIC DATA PAGE</h1>}/>
             <Route path="/Open-Source" render={() => <h1>RESERVERED FOR OPEN SOURCE PAGE</h1>}/>
             <Route path="/Log-In" component={LogIn}/>
