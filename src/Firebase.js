@@ -20,6 +20,11 @@ firestore.settings({
   timestampsInSnapshots: true
 });
 
+const fireFieldValue =  firebase.firestore.FieldValue;
+
+
 export {
-  auth, firestore
+  auth,
+  firestore,
+  fireFieldValue
 };

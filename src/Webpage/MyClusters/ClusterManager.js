@@ -1,5 +1,5 @@
 import React from "react";
-import {firestore} from "../../Firebase";
+import {firestore, fireFieldValue} from "../../Firebase";
 import SingleInputForm from "../../Shared/SingleInputForm";
 
 
@@ -19,6 +19,7 @@ export default class ClusterManager extends React.Component {
     super(props);
     this.state = {users: {}};
     this.addHive = this.addHive.bind(this);
+    this.addOwner = this.addOwner.bind(this);
   }
 
 
@@ -57,9 +58,33 @@ export default class ClusterManager extends React.Component {
     if (!this.props.id) {
       throw new Error("Cluster missing an ID");
     }
-    const hiveSnapshot = await firestore.collection("measurements").doc(this.props.id).collection("hives").add({});
+    const hiveSnapshot = await firestore.collection("measurements")
+      .doc(this.props.id)
+      .collection("hives")
+      .add({});
     const path = `hives.${hiveSnapshot.id}`;
-    await firestore.collection("cluster").doc(this.props.id).update({[path]: {name, public: true}});
+    await firestore.collection("cluster")
+      .doc(this.props.id)
+      .update({[path]: {name, public: true}});
+  }
+
+  static async userExists(email) {
+    const user = await firestore.collection("users")
+      .doc(email)
+      .get();
+    return user.exists;
+  }
+
+  async addOwner(email) {
+    // Ensure owner for given email exists
+    if (!ClusterManager.userExists(email)) {
+      throw new Error("No owner with that email address");
+    } else {
+      // Add them to the list
+      await firestore.collection("cluster")
+        .doc(this.props.id)
+        .update({owners: fireFieldValue.arrayUnion(email)});
+    }
   }
 
   render() {
@@ -114,7 +139,7 @@ export default class ClusterManager extends React.Component {
                   {this.formatOwner(ownerId)}
                 </li>))}
               <li>
-                <SingleInputForm label="+ Add Owner">
+                <SingleInputForm label="+ Add Owner" onSubmit={this.addOwner}>
                   <input type="email" autoComplete="email"/>
                 </SingleInputForm>
               </li>
