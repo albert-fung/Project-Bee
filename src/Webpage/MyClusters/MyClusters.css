@@ -22,9 +22,9 @@
     user-select: none;
 }
 
-.hive--public {
-    color: darkgreen;
+.hive--public::after {
+    content: "🐝";
 }
-.hive--private {
-    color: darkred;
+.hive--private::after {
+    content: "💩";
 }

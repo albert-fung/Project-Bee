@@ -31,7 +31,7 @@ export default class MyClusters extends React.Component {
         </div>
         <div className="row-center">
           <SingleInputForm label="+ Add a Cluster" onSubmit={MyClusters.addCluster}>
-            <input type="text" maxLength="100"/>
+            <input type="text" maxLength="100" placeholder="Cluster Name"/>
           </SingleInputForm>
         </div>
         <hr/>
