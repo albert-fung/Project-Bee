@@ -6,7 +6,7 @@ import SignUp from "./SignUp/SignUp";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
-import MyHives from "./MyHive/MyHives";
+import MyHives from "./MyHives/MyHives";
 
 /*TODO: MAKE NAVBAR RESPONSIVE  */
 export default class WebpageContainer extends React.Component {
