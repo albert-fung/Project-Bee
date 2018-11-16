@@ -33,3 +33,6 @@ input
 .orange {color:#ffa502;}
 .white {color:#f1f2f6;}
 .black {color:#2f3542}
+.blank-option {
+    display: none;
+}

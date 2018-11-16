@@ -27,13 +27,18 @@ export default class WebpageContainer extends React.Component {
   }
 
   onClustersUpdated(snapshot) {
+    // Sets IDs and parses all cluster data
     const clusters = snapshot.docs.map(snap => ({
       id: snap.id,
       ...snap.data()
     }));
+    // Converts hive objects to lists that have an ID
     clusters.forEach(cluster => {
       cluster.hives = Object.entries(cluster.hives)
-        .map(([id, hive]) => ({id, ...hive}))
+        .map(([id, hive]) => ({
+          id,
+          ...hive
+        }));
     });
 
     this.setState({clusters});

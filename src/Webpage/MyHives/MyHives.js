@@ -12,7 +12,7 @@ export default class MyHives extends Component {
 
   render() {
     return (<main className="container">
-      <HiveSelector/>
+      <HiveSelector clusters={this.props.clusters}/>
       <RecentMeasurements/>
       <Graph/>
     </main>);
