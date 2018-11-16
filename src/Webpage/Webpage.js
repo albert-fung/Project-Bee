@@ -38,7 +38,7 @@ export default class WebpageContainer extends React.Component {
       if (user) {
         this.setState({user});
         firestore.collection("cluster")
-          .where("owners", "array-contains", user.uid)
+          .where("owners", "array-contains", user.email)
           .onSnapshot(this.onClustersUpdated);
       } else {
         this.setState({user: null})

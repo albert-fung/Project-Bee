@@ -17,7 +17,6 @@ export default class ClusterManager extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {users: {}};
     this.addHive = this.addHive.bind(this);
     this.addOwner = this.addOwner.bind(this);
   }
@@ -27,31 +26,6 @@ export default class ClusterManager extends React.Component {
     return Object.entries(hives)
       .map(([id, hive]) =>
         (<li key={id}><HiveBadge {...hive}/></li>));
-  }
-
-
-  formatOwner(ownerId) {
-    if (this.state.users[ownerId]) {
-      const user = this.state.users[ownerId];
-      return `${user.name}(${user.email})`;
-    } else {
-      return "Loading...";
-    }
-  }
-
-  componentDidMount() {
-    this.props.owners.forEach(async ownerId => {
-      const queryResult = await firestore.collection("users")
-        .doc(ownerId)
-        .get();
-      const user = queryResult.data();
-      this.setState({
-        users: {
-          [ownerId]: user,
-          ...this.state.users
-        }
-      });
-    });
   }
 
   async addHive(name) {
@@ -69,10 +43,10 @@ export default class ClusterManager extends React.Component {
   }
 
   static async userExists(email) {
-    const user = await firestore.collection("users")
-      .doc(email)
+    const users = await firestore.collection("users")
+      .where("email", "==", email)
       .get();
-    return user.exists;
+    return users.docs.length > 0;
   }
 
   async addOwner(email) {
@@ -134,9 +108,9 @@ export default class ClusterManager extends React.Component {
           <div className="row col-sm-4">
             <h3 className="col-md-6 cluster-manager__subheading">Owners:</h3>
             <ul className="col-md-6">
-              {this.props.owners.map(ownerId => (
-                <li key={ownerId}>
-                  {this.formatOwner(ownerId)}
+              {this.props.owners.map(owner => (
+                <li key={owner}>
+                  {owner}
                 </li>))}
               <li>
                 <SingleInputForm label="+ Add Owner" onSubmit={this.addOwner}>
