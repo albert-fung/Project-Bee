@@ -31,6 +31,11 @@ export default class WebpageContainer extends React.Component {
       id: snap.id,
       ...snap.data()
     }));
+    clusters.forEach(cluster => {
+      cluster.hives = Object.entries(cluster.hives)
+        .map(([id, hive]) => ({id, ...hive}))
+    });
+
     this.setState({clusters});
   }
 
