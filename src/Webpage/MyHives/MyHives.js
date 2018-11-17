@@ -2,7 +2,7 @@ import React, {Component}from "react";
 import "./MyHives.css";
 import HiveSelector from "./HiveSelector";
 import RecentMeasurements from "./RecentMeasurements";
-import Graph from "./Graph";
+import HiveGraph from "./HiveGraph";
 import {firestore} from "../../Firebase";
 
 export default class MyHives extends Component {
@@ -23,7 +23,8 @@ export default class MyHives extends Component {
       id: snap.id,
       ...snap.data()
     }));
-    this.setState({measurements})
+    const times = measurements.map(measurement => MyHives.formatDate(measurement.date));
+    this.setState({measurements, times})
   }
 
   hiveSelected(selectedCluster, selectedHive) {
@@ -38,13 +39,21 @@ export default class MyHives extends Component {
       .onSnapshot(this.measurementsUpdated);
   }
 
+  static formatDate(firestoreDate) {
+    const date = new Date(firestoreDate.seconds);
+    return `${date.getHours()}:${date.getMinutes()}`;
+  }
+
   render() {
     return (<main className="container">
       <HiveSelector onHiveChange={this.hiveSelected} clusters={this.props.clusters}/>
       <RecentMeasurements {...this.state.measurements[0]}
         selectedMeasurement={this.state.selectedMeasurement}
         onMeasurementChange={measurement => this.setState({selectedMeasurement: measurement})}/>
-      <Graph/>
+      <HiveGraph
+        xAxisData={this.state.times}
+        yAxisData={this.state.measurements.map(measurement =>
+          measurement[this.state.selectedMeasurement])}/>
     </main>);
   }
 }
