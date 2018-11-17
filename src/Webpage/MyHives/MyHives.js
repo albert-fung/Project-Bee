@@ -11,7 +11,8 @@ export default class MyHives extends Component {
     this.state = {
       selectedCluster: "",
       selectedHive: "",
-      measurements: []
+      measurements: [],
+      selectedMeasurement: ""
     };
     this.hiveSelected = this.hiveSelected.bind(this);
     this.measurementsUpdated = this.measurementsUpdated.bind(this);
@@ -40,7 +41,9 @@ export default class MyHives extends Component {
   render() {
     return (<main className="container">
       <HiveSelector onHiveChange={this.hiveSelected} clusters={this.props.clusters}/>
-      <RecentMeasurements {...this.state.measurements[0]}/>
+      <RecentMeasurements {...this.state.measurements[0]}
+        selectedMeasurement={this.state.selectedMeasurement}
+        onMeasurementChange={measurement => this.setState({selectedMeasurement: measurement})}/>
       <Graph/>
     </main>);
   }

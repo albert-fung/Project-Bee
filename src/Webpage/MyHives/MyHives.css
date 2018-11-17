@@ -1,16 +1,20 @@
 .measurement-tile {
-    background-color: slateblue;
+    background-color: #2f3542;
     text-align: center;
     color: white;
     border: none;
-    transition: transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all .1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition-property: transform, box-shadow;
+
 }
-.measurement-tile:hover, .measurement-tile:focus {
-    outline: none;
+.measurement-tile:hover {
     transform: scale(1.1, 1.1);
+    z-index: 1;
+    box-shadow: 5px 5px 5px rgba(20,20,20,.2);
 }
-.measurement-tile--selected {
-    background-color: darkred;
+.measurement-tile.measurement-tile--selected {
+    background-color: #ffa502;
+    text-shadow: 2px 2px 5px rgba(20,20,20,.1);
 }
 .measurement-tile--value {
     font-size: x-large;
