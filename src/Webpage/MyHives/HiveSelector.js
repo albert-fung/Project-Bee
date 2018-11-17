@@ -27,9 +27,7 @@ export default class HiveSelector extends Component {
 
   selectHive(event) {
     const selectedHive = event.target.value;
-    if (this.props.onHiveChange) {
-      this.props.onHiveChange(selectedHive);
-    }
+    this.props.onHiveChange(this.state.selectedCluster, selectedHive);
     this.setState({selectedHive});
   }
 
