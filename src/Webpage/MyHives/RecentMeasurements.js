@@ -1,16 +1,8 @@
 import React, {Component}from "react";
 import MeasurementTile from "./MeasurementTile";
-
+import fields from "./fields.json";
 
 export default class RecentMeasurements extends Component {
-  static fields = {
-    temperature: {label: "Temperature", icon: ""},
-    humidity: {label: "Humidity"},
-    frequency: {label: "Frequency"},
-    mass: {label: "Weight"},
-    bees: {label: "Bee Count"},
-    air_quality: {label: "Air Quality"},
-  };
 
   constructor(props) {
     super(props);
@@ -18,7 +10,7 @@ export default class RecentMeasurements extends Component {
 
   render() {
     return <div className="row">
-      {Object.entries(RecentMeasurements.fields).map(([field, options]) =>
+      {Object.entries(fields).map(([field, options]) =>
         <MeasurementTile
           key={field}
           {...options}

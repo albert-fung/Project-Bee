@@ -8,7 +8,7 @@ export default class MeasurementTile extends Component{
   render() {
     const colorClass = this.props.selected ? "measurement-tile--selected" : "";
     return (<button onClick={this.props.onClickMeasurement}
-      className={`measurement-tile col-sm-3 col-md-2 ${this.props.icon} ${colorClass}`}>
+      className={`measurement-tile col-sm-3 col-md-3 col-lg-2 ${this.props.icon} ${colorClass}`}>
       <h3>{this.props.label}</h3>
       <p className="measurement-tile--value">{this.props.value}</p>
     </button>)

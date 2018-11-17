@@ -47,10 +47,13 @@ export default class MyHives extends Component {
   render() {
     return (<main className="container">
       <HiveSelector onHiveChange={this.hiveSelected} clusters={this.props.clusters}/>
+      <hr/>
       <RecentMeasurements {...this.state.measurements[0]}
         selectedMeasurement={this.state.selectedMeasurement}
         onMeasurementChange={measurement => this.setState({selectedMeasurement: measurement})}/>
+      <hr/>
       <HiveGraph
+        name={this.state.selectedMeasurement}
         xAxisData={this.state.times}
         yAxisData={this.state.measurements.map(measurement =>
           measurement[this.state.selectedMeasurement])}/>
