@@ -1,0 +1,27 @@
+{
+  "temperature": {
+    "label": "Temperature",
+    "unit": "°C",
+    "icon": ""
+  },
+  "humidity": {
+    "label": "Humidity",
+    "unit": "%"
+  },
+  "frequency": {
+    "label": "Frequency",
+    "unit": "KHz"
+  },
+  "mass": {
+    "label": "Weight",
+    "unit": "Kg"
+  },
+  "bees": {
+    "label": "Bee Count",
+    "unit": "🐝"
+  },
+  "air_quality": {
+    "label": "Air Quality",
+    "unit": ""
+  }
+}

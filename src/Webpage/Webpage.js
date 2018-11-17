@@ -6,6 +6,7 @@ import SignUp from "./SignUp/SignUp";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
+import MyHives from "./MyHives/MyHives";
 
 /*TODO: MAKE NAVBAR RESPONSIVE  */
 export default class WebpageContainer extends React.Component {
@@ -26,10 +27,20 @@ export default class WebpageContainer extends React.Component {
   }
 
   onClustersUpdated(snapshot) {
+    // Sets IDs and parses all cluster data
     const clusters = snapshot.docs.map(snap => ({
       id: snap.id,
       ...snap.data()
     }));
+    // Converts hive objects to lists that have an ID
+    clusters.forEach(cluster => {
+      cluster.hives = Object.entries(cluster.hives)
+        .map(([id, hive]) => ({
+          id,
+          ...hive
+        }));
+    });
+
     this.setState({clusters});
   }
 
@@ -92,7 +103,7 @@ export default class WebpageContainer extends React.Component {
             </nav>
             {/*Routes that the above links point to TODO complete three other pages and connect them */}
             <Route path="/" exact={true} component={LandingPage}/>
-            <Route path="/My-Hive" render={() => <h1>RESVERED FOR MY-HIVE PAGE</h1>}/>
+            <Route path="/My-Hive" render={() => <MyHives clusters={this.state.clusters}/>}/>
             <Route path="/My-Clusters" render={() => <MyClusters clusters={this.state.clusters}/>}/>
             <Route path="/Public-Data" render={() => <h1>RESERVERED FOR PUBLIC DATA PAGE</h1>}/>
             <Route path="/Open-Source" render={() => <h1>RESERVERED FOR OPEN SOURCE PAGE</h1>}/>

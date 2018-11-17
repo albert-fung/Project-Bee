@@ -22,12 +22,6 @@ export default class ClusterManager extends React.Component {
     this.addOwner = this.addOwner.bind(this);
   }
 
-  static renderHiveList(hives) {
-    return Object.entries(hives)
-      .map(([id, hive]) =>
-        (<li key={id}><HiveBadge {...hive}/></li>));
-  }
-
   async addHive(name) {
     if (!this.props.id) {
       throw new Error("Cluster missing an ID");
@@ -96,7 +90,7 @@ export default class ClusterManager extends React.Component {
           <div className="row col-sm-4">
             <h3 className="col-md-6 cluster-manager__subheading">Hives:</h3>
             <ul className="col-md-6">
-              {ClusterManager.renderHiveList(this.props.hives)}
+              {this.props.hives.map(hive => <HiveBadge key={hive.id} {...hive}/>)}
               <li>
                 <SingleInputForm label="+ Add Hive" onSubmit={this.addHive}>
                   <input type="text" placeholder="Hive Name" maxLength="100" autoComplete="off"/>
