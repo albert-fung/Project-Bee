@@ -1,3 +1,17 @@
-.my-hives {
-    color: red;
+.measurement-tile {
+    background-color: slateblue;
+    text-align: center;
+    color: white;
+    border: none;
+    transition: transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.measurement-tile:hover, .measurement-tile:focus {
+    outline: none;
+    transform: scale(1.1, 1.1);
+}
+.measurement-tile--selected {
+    background-color: darkred;
+}
+.measurement-tile--value {
+    font-size: x-large;
 }

@@ -40,8 +40,7 @@ export default class MyHives extends Component {
   render() {
     return (<main className="container">
       <HiveSelector onHiveChange={this.hiveSelected} clusters={this.props.clusters}/>
-      {JSON.stringify(this.state.measurements)}
-      <RecentMeasurements/>
+      <RecentMeasurements {...this.state.measurements[0]}/>
       <Graph/>
     </main>);
   }
