@@ -1,63 +1,71 @@
-#HeaderNav-container{
-  display:inline-flex;
-  width:100%;
-}
-.nav-container{
-  padding-right:1em;
-  display:inline;
-}
 .nav-bar {
-  text-align: right;
-  margin:15px 15px auto auto;
- 
+  display:flex;
+  width:100%;
+  align-items: center;
 }
-#header {
-  display:inline-block;
-  font-size: 2em;
-  padding:10px 0 10px 5px ;
+.header{
+  display: inline-block;
+  margin:10px 0 10px 10px;
 }
-#nav-list{
+.nav-menu{
+  margin:0 10px 0 auto;
+  font-size:1.25em;
+}
+.nav-menu, .nav-menu li{
   display:inline-block;
 }
 
 .nav-element{
+  cursor: pointer;
   color:black;
   text-decoration: none;
-  transition: all 0.5s ease-in-out;
-  -webkit-transition: all 0.30s ease-in-out;
-  -moz-transition: all 0.30s ease-in-out;
-  -ms-transition: all 0.30s ease-in-out;
-  -o-transition: all 0.30s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
 }
 .nav-element:hover{
   color:rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+.nav-element span {
+  padding-right: 10px;
+}
+/* nav bar icons */
+.fas {
+  padding-right:8px;
+}
+.dropdown-btn{
+  display:none;
+  float:right;
+  margin: 10px 10px 0 auto;
 }
 
-.nav-element i{
-  padding-right:5px;
-  height: 100%;
-}
-#dropdown-btn{
-  display:none;
-}
 .displaynone{ 
  display:none !important;
 }
 
-@media only screen and (max-width: 900px) {
-#dropdown-btn{
-  display: inline-block;
-}
- #nav-list{
-  display:none;
-  padding:0 10px 10px 10px;
-  background-color:rgba(246,246,246,1);
-  border: 1px solid rgba(240, 240, 240, 1);
-  border-radius:10px;
-}
-.nav-container{
+@media only screen and (max-width: 1024px) {
+.nav-bar,.nav-menu,.nav-menu li{
   display:block;
-  padding-top:5px;
+}
+.displaynonemobile{
+  display:none !important;
+}
+.nav-menu li  {
+  border-bottom: 0.8px rgba(153, 153, 153, 0.425) solid;
+  width:25%;
+  padding: 3px 0 3px 0 ;
+  margin: auto;
+}
+.nav-menu{
+  text-align: center;
+  
+}
+.dropdown-btn{
+  display:inline-block;
+
 }
 
 }
