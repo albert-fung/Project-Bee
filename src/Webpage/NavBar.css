@@ -6,6 +6,7 @@
 .header{
   display: inline-block;
   margin:10px 0 10px 10px;
+  padding-top:0;
 }
 .nav-menu{
   margin:0 10px 0 auto;
@@ -51,7 +52,7 @@
 .dropdown-btn{
   display:none;
   float:right;
-  margin: 10px 10px 0 auto;
+  margin: 10px 1vw 0 auto;
 }
 
 .displaynone{ 
