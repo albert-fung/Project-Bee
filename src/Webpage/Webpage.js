@@ -8,7 +8,7 @@ import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
 import MyHives from "./MyHives/MyHives";
 
-/*TODO: MAKE NAVBAR RESPONSIVE  */
+
 export default class WebpageContainer extends React.Component {
 
   constructor(props) {
@@ -58,6 +58,7 @@ export default class WebpageContainer extends React.Component {
     });
   }
   HandleDropdown(){
+  // Toggling dropdown in mobile mode
   var navbar=document.getElementById('nav-menu');
   navbar.classList == 'nav-menu' ? 
   navbar.classList.add('displaynonemobile'):
@@ -105,9 +106,9 @@ export default class WebpageContainer extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <div className="nav-element" onClick={this.logOut}>
+                  <button className="nav-element logout-btn" onClick={this.logOut}>
                     <span><i className="fas fa-lock-open"/>Logout</span>
-                  </div>
+                  </button>
                 </li>
               </ul>
              

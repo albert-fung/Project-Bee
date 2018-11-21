@@ -50,7 +50,7 @@ export default class LogIn extends ReactForm {
     let loginError;
     let redirect;
     if (this.state.error) {
-      loginError = <span>Invalid username/password</span>
+      loginError = <div className="error-msg">Invalid username/password</div>
     }
     if (this.state.loggedIn) {
       redirect = <Redirect to="My-Hive"/>
@@ -61,28 +61,27 @@ export default class LogIn extends ReactForm {
           {redirect}
           <div id="Input-Container">
             <h1>Login</h1>
-            <form onSubmit={this.login}>
-              <input type="email" name="email" value={this.state.email} onChange={this.handleInputChange}
-                     placeholder="Email"
-                     style={styles.input_animation}/>
+            <form className="login-form" onSubmit={this.login}>
+              <div className="input-wrapper">
+                <input type="email" name="email" value={this.state.email} onChange={this.handleInputChange}
+                     placeholder="email" style={styles.input_animation}/>
               <input type="password" name="password" value={this.state.password}
                      onChange={this.handleInputChange}
-                     placeholder="Password"
-                     style={styles.input_animation}/>
+                     style={styles.input_animation}
+                     placeholder="password"/>
               {loginError}
-              <input type="submit" value="Login"
+              </div>
+              <input className="login-btn" type="submit" value="Login"
                      style={styles.logbtn_animation}/>
             </form>
             <hr/>
-            <div id="other-login">
-              <div style={styles.vendorbtn_animation} id="round-logingroup">
+              <div style={styles.vendorbtn_animation} id="round-vendorgroup">
                 <RoundButton symbol="fa-google" name="G+"/>
                 <RoundButton symbol="fa-facebook" name="FB"/>
                 <RoundButton symbol="fa-twitter" name="Twitter"/>
                 <RoundButton symbol="fa-github" name="GitHub"/>
               </div>
-            </div>
-            <div>
+            <div className="signup">
               Don't have an account?
               <Link to="/Sign-Up"> Create one </Link>
             </div>
@@ -96,11 +95,11 @@ export default class LogIn extends ReactForm {
 class RoundButton extends React.Component {
   render() {
     return (
-      <div className="btn-container">
-        <button className={"round-loginbtn " + this.props.color}>
+      <div className="roundbtn-container">
+        <button className={"round-vendorbtn " + this.props.color}>
           <i className={"fab fa-2x " + this.props.symbol}/>
         </button>
-        <div className="name">{this.props.name}</div>
+        <div className="vendor-name">{this.props.name}</div>
       </div>
     )
   }

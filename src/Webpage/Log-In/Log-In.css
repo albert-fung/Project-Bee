@@ -1,29 +1,28 @@
-#Login-Container 
-{ width:100%;height:calc(100% - 55px);
-  position: relative;
-}
 #Input-Container{ 
   box-shadow: 0px 0px 56px 7px rgba(224,224,224,1);
   margin-top:10vh;
+  margin-bottom:50px;
   width:25vw; min-width:300px; 
   height: 60vh; min-height:400px; max-height:500px;
   position: absolute;
-  left:calc(50% - 200px);
+  left:calc(50% - 12.5vw);
   background-color:rgb(245, 245, 245);
   border-radius: 5px;
 }
-/*Alligning inputs*/
-#Input-Container > h1 , #Input-Container > input ,  #Input-Container > button 
-{ margin-left:2vw;}
-
-#Input-Container > input 
+/*container for just input for the log in processes*/
+.login-form
+{ display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input-wrapper input
 { display:block;
   color: rgba(94, 94, 94, 1);
   background-color:rgba(230,230,230,0.8);
   border: 0.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 50px;
   width:20vw;max-width: 250px; min-width:200px;
-  height:30px;
+  height:35px;
   font-size:1.1em;
   margin-bottom:20px;
   transition:all 0.30s ease-in-out;
@@ -32,41 +31,43 @@
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
 }
-#Input-Container > button
-{ width:175px;
-  border: 2px solid #2f3542;
+/*Blue border when any input is focused */
+.input-wrapper > input:focus,.login-btn:focus {
+  outline:none;
+  border-radius: 50px;
+  box-shadow: 0 0 5px rgb(35, 89, 236);
+  border: 2px solid rgba(25, 89, 236, 1);
+}
+::placeholder
+{ color:rgba(0, 0, 0, 0.2)}
+.login-btn
+{ background: #2f3542;
+  color: white;
+  width:20vw;max-width: 250px; min-width:200px;
+  border: none;
+  border-radius: 1000px;
   transition:all 0.30s ease-in-out;
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
 }
-#Input-Container > input:focus,#Input-Container > button:focus {
-  border-radius: 50px;
-  box-shadow: 0 0 5px rgb(35, 89, 236);
-  border: 2px solid rgba(25, 89, 236, 1);
+#Input-Container h1 , .error-msg, .signup{
+  text-align: center;
 }
-
-::placeholder
-{ color:rgba(0, 0, 0, 0.2)}
-
-#other-login{margin-top:3vh;widows: 100%;position: relative;}
 hr { 
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   width:60%;
 }
-.btn-container{
+
+/*CSS for vendor buttons at the bottom*/
+.roundbtn-container{
   display:inline-block;
-  margin: 0 10px 0 10px;
+  margin: 0 10px 20px 10px;
   text-align: center;
 }
-#round-login-group{
-  text-align: center;
-  width: 100%;
-  display: inline-block;
-  margin-top:5vh;
-}
-.round-loginbtn{
+
+.round-vendorbtn{
   position: relative;
   border-radius: 50%;
   height:50px;width:50px;
@@ -78,23 +79,29 @@ hr {
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
 }
-.round-loginbtn > i {
+.round-vendorbtn > i {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.round-loginbtn:focus{
+.round-vendorbtn:focus{
   outline: none;
   border-radius: 50%;
   box-shadow: 0 0 5px rgb(35, 89, 236);
   border: 2px solid rgba(25, 89, 236, 1);
 }
-.name{
+#round-vendorgroup{
+  display:flex;
+  justify-content: space-evenly;
+}
+.vendor-name{
   font-size:0.8em;
   padding-top:3px;
   color:rgba(0, 0, 0, 0.6);
 }
+
+/*Colors for vendor button*/
 .fa-google{
   color:red;
 }
