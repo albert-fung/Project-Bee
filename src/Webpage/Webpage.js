@@ -8,7 +8,7 @@ import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
 import MyHives from "./MyHives/MyHives";
 
-/*TODO: MAKE NAVBAR RESPONSIVE  */
+
 export default class WebpageContainer extends React.Component {
 
   constructor(props) {
@@ -20,6 +20,7 @@ export default class WebpageContainer extends React.Component {
     };
     this.logOut = this.logOut.bind(this);
     this.onClustersUpdated = this.onClustersUpdated.bind(this);
+    this.HandleDropdown= this.HandleDropdown.bind(this);
   }
 
   async logOut() {
@@ -56,7 +57,13 @@ export default class WebpageContainer extends React.Component {
       }
     });
   }
-
+  HandleDropdown(){
+  // Toggling dropdown in mobile mode
+  var navbar=document.getElementById('nav-menu');
+  navbar.classList == 'nav-menu' ? 
+  navbar.classList.add('displaymenumobile'):
+  navbar.classList.remove('displaymenumobile');
+  }
   render() {
     return (
       <div id="front-page">
@@ -64,9 +71,14 @@ export default class WebpageContainer extends React.Component {
           <div id="Router-container">
             {/*Nav-bar using Routers to create Single page application*/}
             <nav className="nav-bar">
-              <h1 className="text-center"><span className="black">Project</span><span className="orange">Bee</span></h1>
-              <ul className="text-right">
-                <li><Link className="nav-element" to="/"><span><i className="fas fa-home"/>Home</span></Link></li>
+              <h1 className="header text-center"><span className="black">Project</span><span className="orange">Bee</span></h1>
+              <span onClick={this.HandleDropdown} className="dropdown-btn"><i class="fas fa-bars fa-2x"></i></span>
+              <ul id="nav-menu" className="nav-menu">
+                <li>
+                  <Link className="nav-element" to="/">
+                    <span><i className="fas fa-home"/>Home</span>
+                  </Link>
+                </li>
                 <li>
                   <Link className="nav-element" to="/My-Hive">
                     <span><i className="fas fa-flask"/>My Hives</span>
@@ -94,12 +106,12 @@ export default class WebpageContainer extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <button className="nav-element" onClick={this.logOut}>
-                    <span><i className="fas fa-lock"/>Logout</span>
+                  <button className="nav-element logout-btn" onClick={this.logOut}>
+                    <span><i className="fas fa-lock-open"/>Logout</span>
                   </button>
                 </li>
-                <li className="displaynone nav-element"><span><i className="fas fa-lock-open"/>Log out</span></li>
               </ul>
+             
             </nav>
             {/*Routes that the above links point to TODO complete three other pages and connect them */}
             <Route path="/" exact={true} component={LandingPage}/>

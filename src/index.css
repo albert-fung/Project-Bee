@@ -9,22 +9,12 @@ body, html, #root,#front-page,#landing-page,#Router-container {
 { display: flex;
   justify-content: center;
 }
-.btn 
-{ background: #2f3542;
-  color: white;
-  padding: 5px 10px;
-  margin: 3px;
-  border: none;
-  border-radius: 1000px;
-  cursor: pointer;
-    -moz-outline-radius: 1000px;
-}
 .icon-button {
-    background: none;
-    border: none;
+  background: none;
+  border: none;
 }
 ul {
-    list-style: none;
+  list-style: none;
 }
 input 
 { margin: 3px;
