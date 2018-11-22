@@ -82,8 +82,8 @@ export default class LogIn extends ReactForm {
                 <RoundButton symbol="fa-github" name="GitHub"/>
               </div>
             <div className="signup">
-              Don't have an account?
-              <Link to="/Sign-Up"> Create one </Link>
+              Don't have an account?&nbsp; 
+              <Link to="/Sign-Up">Create one </Link>
             </div>
           </div>
         </div>
