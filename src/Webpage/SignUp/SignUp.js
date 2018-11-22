@@ -1,9 +1,19 @@
 import React from 'react';
 import './SignUp.css';
+import { fadeInDown } from 'react-animations';
+import Radium, {StyleRoot} from 'radium';
 import ReactForm from "../../Shared/ReactForm";
 import * as auth from "../../Authentication";
 import {Link, Redirect} from "react-router-dom";
 import {firestore} from "../../Firebase";
+
+const styles = {
+  /* Animation for signup-form */
+   input_animation:{
+    animation: 'x 1.5s',
+    animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+  }
+};
 
 class SignUp extends ReactForm {
   constructor(props) {
@@ -48,10 +58,11 @@ class SignUp extends ReactForm {
     }
 
     return (
-      <div className="container">
-        <form onSubmit={this.signUp}>
+      <div className="signup-container container">
+      <StyleRoot>
+        <form className="signup-form" style={styles.input_animation} onSubmit={this.signUp}>
           <h1>Sign Up</h1>
-          <div className="input-field">
+          <div className="signup-input input-field">
             <input type="email" name="email" required value={this.state.email} onChange={this.handleInputChange}
                    placeholder="Email"/>
             <input type="password" name="password" required value={this.state.password}
@@ -63,10 +74,11 @@ class SignUp extends ReactForm {
           </div>
           <div className="input-field">
             {signUpError}
-            <input type="submit" disabled={this.state.accountCreated} value="Sign Up"/>
+            <input className="signup-btn" type="submit" disabled={this.state.accountCreated} value="Sign Up"/>
             {accountCreatedMessage}
           </div>
         </form>
+        </StyleRoot>
       </div>
     )
   }
