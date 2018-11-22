@@ -61,8 +61,8 @@ export default class WebpageContainer extends React.Component {
   // Toggling dropdown in mobile mode
   var navbar=document.getElementById('nav-menu');
   navbar.classList == 'nav-menu' ? 
-  navbar.classList.add('displaynonemobile'):
-  navbar.classList.remove('displaynonemobile');
+  navbar.classList.add('displaymenumobile'):
+  navbar.classList.remove('displaymenumobile');
   }
   render() {
     return (

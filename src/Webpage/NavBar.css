@@ -60,11 +60,14 @@
 }
 
 @media only screen and (max-width: 1024px) {
-.nav-bar,.nav-menu,.nav-menu li{
+.nav-bar,.nav-menu li{
   display:block;
 }
-.displaynonemobile{
-  display:none !important;
+.nav-menu{
+  display:none;
+}
+.displaymenumobile{
+  display:block;
 }
 .nav-menu li  {
   border-bottom: 0.8px rgba(153, 153, 153, 0.425) solid;
