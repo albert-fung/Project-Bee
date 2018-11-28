@@ -1,4 +1,4 @@
-import React, {Component}from "react";
+import React, {Component} from "react";
 import "./MyHives.css";
 import HiveSelector from "./HiveSelector";
 import RecentMeasurements from "./RecentMeasurements";
@@ -48,8 +48,10 @@ export default class MyHives extends Component {
     return (<main className="container">
       <HiveSelector onHiveChange={this.hiveSelected} clusters={this.props.clusters}/>
       <hr/>
-      <RecentMeasurements {...this.state.measurements[0]}
+      <RecentMeasurements
+        {...this.state.measurements[0]}
         selectedMeasurement={this.state.selectedMeasurement}
+        disabled={!this.state.measurements.length}
         onMeasurementChange={measurement => this.setState({selectedMeasurement: measurement})}/>
       <hr/>
       <HiveGraph

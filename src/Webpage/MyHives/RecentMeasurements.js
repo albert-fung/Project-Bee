@@ -14,6 +14,7 @@ export default class RecentMeasurements extends Component {
         <MeasurementTile
           key={field}
           {...options}
+          disabled={this.props.disabled}
           value={this.props[field]}
           selected={field === this.props.selectedMeasurement}
           onClickMeasurement={() => this.props.onMeasurementChange(field)}/>)}

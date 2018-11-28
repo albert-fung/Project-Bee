@@ -12,6 +12,16 @@
     z-index: 1;
     box-shadow: 5px 5px 5px rgba(20,20,20,.2);
 }
+.measurement-tile--disabled {
+    background-color: grey;
+
+}
+.measurement-tile.measurement-tile--disabled:hover {
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
 .measurement-tile.measurement-tile--selected {
     background-color: #ffa502;
     text-shadow: 2px 2px 5px rgba(20,20,20,.1);
