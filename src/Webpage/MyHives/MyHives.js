@@ -16,6 +16,7 @@ export default class MyHives extends Component {
     };
     this.hiveSelected = this.hiveSelected.bind(this);
     this.measurementsUpdated = this.measurementsUpdated.bind(this);
+    this.getRecentMeasurements = this.getRecentMeasurements.bind(this);
   }
 
   measurementsUpdated(snapshot) {
@@ -24,7 +25,7 @@ export default class MyHives extends Component {
       ...snap.data()
     }));
     const times = measurements.map(measurement => MyHives.formatDate(measurement.date));
-    this.setState({measurements, times})
+    this.setState({measurements, times});
   }
 
   hiveSelected(selectedCluster, selectedHive) {
@@ -44,12 +45,16 @@ export default class MyHives extends Component {
     return `${date.getHours()}:${date.getMinutes()}`;
   }
 
+  getRecentMeasurements() {
+    return this.state.measurements[this.state.measurements.length - 1];
+  }
+
   render() {
     return (<main className="container">
       <HiveSelector onHiveChange={this.hiveSelected} clusters={this.props.clusters}/>
       <hr/>
       <RecentMeasurements
-        {...this.state.measurements[0]}
+        {...this.getRecentMeasurements()}
         selectedMeasurement={this.state.selectedMeasurement}
         disabled={!this.state.measurements.length}
         onMeasurementChange={measurement => this.setState({selectedMeasurement: measurement})}/>
