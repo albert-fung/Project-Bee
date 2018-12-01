@@ -1,14 +1,34 @@
-# Project Bee Buzz.
+# Project Bee Buzz......
+
+CEG Capstone project @ Uottawa
+
+##### Refer to Project Bee's [Back-end](https://github.com/YanuG/project-bee) for hardward portion.
+
+### Demo
+https://projectbees.herokuapp.com/
+
+#####
+
+## Software used 
+- NodeJS 
+- ReactJS 
+- Firebase platform
 
 ## How to run: 
+1. Gather all files in local repo 
+```
+git clone https://github.com/albert-fung/Project-Bee.git
+```
 
-1. git clone https://github.com/albert-fung/Project-Bee.git
-      to gather all finals in local repo 
+2. Go to source file and download all dependencies/node-modules 
+```
+npm install
+```
 
-2. npm install
-      To gather all dependencies/node-modules 
+3. To run local react app 
+```
+npm start
+```
 
-3. npm start
-      To run local react
 
 
