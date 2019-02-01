@@ -7,7 +7,14 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
 import MyHives from "./MyHives/MyHives";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+import {faflask, faFlask} from "@fortawesome/free-solid-svg-icons/faFlask";
+import {faUsers} from "@fortawesome/free-solid-svg-icons/faUsers";
+import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
+import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
+import {faLock} from "@fortawesome/free-solid-svg-icons/faLock";
+import {faUnlock} from "@fortawesome/free-solid-svg-icons/faUnlock";
 
 export default class WebpageContainer extends React.Component {
 
@@ -76,38 +83,38 @@ export default class WebpageContainer extends React.Component {
               <ul id="nav-menu" className="nav-menu">
                 <li>
                   <Link className="nav-element" to="/">
-                    <span><i className="fas fa-home"/>Home</span>
+                    <FontAwesomeIcon icon={faHome}/><span className="">Home</span>
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-element" to="/My-Hive">
-                    <span><i className="fas fa-flask"/>My Hives</span>
+                  <FontAwesomeIcon icon={faFlask}/><span>My Hives</span>
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-element" to="/My-Clusters">
                     {/* Todo: unique icon for clusters */}
-                    <span><i className="fas fa-flask"/>My Clusters</span>
+                    <FontAwesomeIcon icon={faFlask}/><span>My Clusters</span>
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-element" to="/Public-Data">
-                    <span><i className="fas fa-users"/>Public Data</span>
+                  <FontAwesomeIcon icon={faUsers}/><span>Public Data</span>
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-element" to="/Open-Source">
-                    <span><i className="fas fa-code"/>Open Source</span>
+                  <FontAwesomeIcon icon={faCode}/><span>Open Source</span>
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-element" to="/Log-In">
-                    <span><i className="fas fa-lock"/>Login</span>
+                  <FontAwesomeIcon icon={faLock}/><span>Login</span>
                   </Link>
                 </li>
                 <li>
                   <button className="nav-element logout-btn" onClick={this.logOut}>
-                    <span><i className="fas fa-lock-open"/>Logout</span>
+                  <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
                   </button>
                 </li>
               </ul>
