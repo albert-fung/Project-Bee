@@ -7,14 +7,15 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
 import MyHives from "./MyHives/MyHives";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-import {faflask, faFlask} from "@fortawesome/free-solid-svg-icons/faFlask";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFlask} from "@fortawesome/free-solid-svg-icons/faFlask";
 import {faUsers} from "@fortawesome/free-solid-svg-icons/faUsers";
 import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
 import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
 import {faLock} from "@fortawesome/free-solid-svg-icons/faLock";
 import {faUnlock} from "@fortawesome/free-solid-svg-icons/faUnlock";
+import {faBars} from "@fortawesome/free-solid-svg-icons/faBars";
 
 export default class WebpageContainer extends React.Component {
 
@@ -79,7 +80,7 @@ export default class WebpageContainer extends React.Component {
             {/*Nav-bar using Routers to create Single page application*/}
             <nav className="nav-bar">
               <h1 className="header text-center"><span className="black">Project</span><span className="orange">Bee</span></h1>
-              <span onClick={this.HandleDropdown} className="dropdown-btn"><i class="fas fa-bars fa-2x"></i></span>
+              <span onClick={this.HandleDropdown} className="dropdown-btn"><FontAwesomeIcon size={"2x"} icon={faBars}/></span>
               <ul id="nav-menu" className="nav-menu">
                 <li>
                   <Link className="nav-element" to="/">
@@ -88,7 +89,7 @@ export default class WebpageContainer extends React.Component {
                 </li>
                 <li>
                   <Link className="nav-element" to="/My-Hive">
-                  <FontAwesomeIcon icon={faFlask}/><span>My Hives</span>
+                    <FontAwesomeIcon icon={faFlask}/><span>My Hives</span>
                   </Link>
                 </li>
                 <li>
@@ -99,22 +100,22 @@ export default class WebpageContainer extends React.Component {
                 </li>
                 <li>
                   <Link className="nav-element" to="/Public-Data">
-                  <FontAwesomeIcon icon={faUsers}/><span>Public Data</span>
+                    <FontAwesomeIcon icon={faUsers}/><span>Public Data</span>
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-element" to="/Open-Source">
-                  <FontAwesomeIcon icon={faCode}/><span>Open Source</span>
+                    <FontAwesomeIcon icon={faCode}/><span>Open Source</span>
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-element" to="/Log-In">
-                  <FontAwesomeIcon icon={faLock}/><span>Login</span>
+                    <FontAwesomeIcon icon={faLock}/><span>Login</span>
                   </Link>
                 </li>
                 <li>
                   <button className="nav-element logout-btn" onClick={this.logOut}>
-                  <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
+                    <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
                   </button>
                 </li>
               </ul>
