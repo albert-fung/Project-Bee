@@ -1,8 +1,6 @@
-import React from 'react';
+import React,{lazy,Suspense} from 'react';
 import './NavBar.css';
 import LandingPage from "./Landing-Page/Home";
-import LogIn from "./Log-In/Log-In";
-import SignUp from "./SignUp/SignUp";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
@@ -16,6 +14,10 @@ import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
 import {faLock} from "@fortawesome/free-solid-svg-icons/faLock";
 import {faUnlock} from "@fortawesome/free-solid-svg-icons/faUnlock";
 import {faBars} from "@fortawesome/free-solid-svg-icons/faBars";
+
+
+const LogIn= lazy(()=>import("./Log-In/Log-In"));
+const SignUp= lazy(()=>import("./SignUp/SignUp"));
 
 export default class WebpageContainer extends React.Component {
 
@@ -127,8 +129,10 @@ export default class WebpageContainer extends React.Component {
             <Route path="/My-Clusters" render={() => <MyClusters clusters={this.state.clusters}/>}/>
             <Route path="/Public-Data" render={() => <h1>RESERVERED FOR PUBLIC DATA PAGE</h1>}/>
             <Route path="/Open-Source" render={() => <h1>RESERVERED FOR OPEN SOURCE PAGE</h1>}/>
-            <Route path="/Log-In" component={LogIn}/>
-            <Route path="/Sign-Up" component={SignUp}/>
+            <Suspense fallback={<div>loading</div>}>
+              <Route path="/Log-In" component={LogIn}/>
+              <Route path="/Sign-Up" component={SignUp}/>
+            </Suspense>
           </div>
         </Router>
 
