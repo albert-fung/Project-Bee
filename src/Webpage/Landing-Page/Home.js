@@ -5,6 +5,11 @@ import 'slick-carousel/slick/slick.css';
 import "./Hero.css";
 import { fadeInDown ,fadeIn } from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
+
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faUserCircle} from "@fortawesome/free-solid-svg-icons/faUserCircle"
+import {faArchive} from "@fortawesome/free-solid-svg-icons/faArchive";
+import {faQuestion} from "@fortawesome/free-solid-svg-icons/faQuestion"
 /* TODO 
   - Add animation to background and stutter so carosuel comes first. (Debating?)
 */
@@ -56,7 +61,7 @@ export default class Landingpage extends React.Component
            {/* Animation */}
           <div style={styles.about_animation_1} className="about-elements">
             <div className="icon-container">
-              <span className="icon fa fa-user-circle fa-4x"></span>
+              <span className="icon"><FontAwesomeIcon icon={faUserCircle} size="6x"/></span>
             </div>
             <h1>About Us!</h1>
             <p>
@@ -74,7 +79,7 @@ export default class Landingpage extends React.Component
              {/* Animation */}
           <div style={styles.about_animation_2}  className="about-elements">
             <div className="icon-container">
-              <span className="icon fas fa-archive fa-4x"></span>
+              <span className="icon"><FontAwesomeIcon icon={faArchive} size="6x"/></span>
             </div>
             <h1>Our Product.</h1>
             <p>
@@ -91,7 +96,7 @@ export default class Landingpage extends React.Component
            <StyleRoot>
           <div style={styles.about_animation_3} className="about-elements">
             <div className="icon-container">
-              <span className="icon fas fa-question fa-4x"></span>
+              <span className="icon"><FontAwesomeIcon icon={faQuestion}size="6x"/></span>
             </div>
             <h1>How we can help you?</h1>
             <p>
