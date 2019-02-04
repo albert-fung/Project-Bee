@@ -36,7 +36,37 @@ const getMostRecentMeasurements = (measurements, archive) =>
     .slice(measurements.length + archive.length - NUM_RECENT_MEASUREMENTS);
 
 
+const splitMeasurements = measurements => {
+  const individualLists = {
+    air_quality: [],
+    bees: [],
+    frequency: [],
+    date: [],
+    humidity: [],
+    mass: [],
+    temperature: []
+  };
+  measurements.forEach(measurement =>
+    Object.entries(measurement)
+      .forEach(([key, value]) =>
+        individualLists[key].push(value)));
+  return individualLists;
+};
 
+// Todo: Write proper abnormality scanners for appropriate fields
+const findAbnormalities = measurements => {
+  const abnormalities = [];
+  const {air_quality: airQuality, bees, frequency, humidity, mass, temperature} = splitMeasurements(measurements);
+  if (mass.some((massValue, index) => massValue * 2 < mass[index - 1])) {
+    abnormalities.push(`Mass has significantly decreased!`);
+  }
+  return abnormalities;
+};
+
+const notifyUser = (abnormalities, auth) => {
+  // Todo: Notify user on weirdness
+  // Todo: Keep track of when user was last notified (as to not spam them)
+};
 
 exports.addMeasurements = functions.firestore
   .document("/measurements/{clusterId}/hives/{hiveId}/buffer")
@@ -58,9 +88,10 @@ exports.addMeasurements = functions.firestore
       // If at least one measurement is one of the 15 most recent
       if (measurements[measurements.length - 1].date > archives[0].date) {
         const recentMeasurements = getMostRecentMeasurements(measurements, archives);
-        // Todo: Scan measurements for weirdness
-        // Todo: Notify user on weirdness
-        // Todo: Keep track of when user was last notified (as to not spam them)
+        const abnormalities = findAbnormalities(measurements);
+        if (abnormalities.length > 0) {
+          notifyUser(abnormalities, context.auth);
+        }
         change.after.recentMeasurements = recentMeasurements;
       }
 
