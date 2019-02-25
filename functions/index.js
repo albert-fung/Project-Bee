@@ -53,14 +53,65 @@ const splitMeasurements = measurements => {
   return individualLists;
 };
 
-// Todo: Write proper abnormality scanners for appropriate fields
-const findAbnormalities = measurements => {
+const findAbsoluteAbnormalities = measurement => {
   const abnormalities = [];
-  const {air_quality: airQuality, bees, frequency, humidity, mass, temperature} = splitMeasurements(measurements);
-  if (mass.some((massValue, index) => massValue * 2 < mass[index - 1])) {
-    abnormalities.push(`Mass has significantly decreased!`);
+  if (measurement.temperature < 32) {
+    abnormalities.push(`Internal temperature quite low [${measurement.temperature}]`);
+  }
+  if (measurement.temperature > 36) {
+    abnormalities.push(`Internal temperature quite high [${measurement.temperature}]`);
+  }
+  if (measurement.air_quality < 2) {
+    abnormalities.push(`Air quality is quite bad [${measurement.air_quality}]`);
+  }
+  if (measurement.humidity < 40){
+    abnormalities.push(`Internal humidity is quite low [${measurement.air_quality}]`);
+  }
+  if (measurement.humidity > 80){
+    abnormalities.push(`Internal humidity is quite high [${measurement.air_quality}]`);
+  }
+  if (measurement.frequency > 300 && measurement.frequency < 500){
+    abnormalities.push(`Potential Spotting of the Queen Bee [${measurement.frequency}]`);
+  }
+  if (measurement.frequency > 2000 && measurement.frequency < 3600){
+    abnormalities.push(`Colony feels a threat is nearby! [${measurement.frequency}]`);
   }
   return abnormalities;
+};
+const findRelativeAbnormalities = (prevMeasurement, measurement) => {
+  const abnormalities = [];
+  if (measurement.mass > prevMeasurement.mass * 1.5) {
+    abnormalities.push(`Sudden increase in mass detected. From [${prevMeasurement.mass}] to [${measurement.mass}]`);
+  }
+  if (measurement.mass < prevMeasurement.mass / 1.5) {
+    abnormalities.push(`Sudden decrease in mass detected. From [${prevMeasurement.mass}] to [${measurement.mass}]`);
+  }
+  if (measurement.temperature > prevMeasurement * 1.5){
+    abnormalities.push(`Sudden increase in temperature detected. From [${prevMeasurement.temperature}] to [${measurement.temperature}] `);
+  }
+  if (measurement.temperature < prevMeasurement / 1.5){
+    abnormalities.push(`Sudden decrease in temperature detected. From [${prevMeasurement.temperature}] to [${measurement.temperature}] `);
+  }
+  if (measurement.bees < prevMeasurement * 1.5) {
+    abnormalities.push(`Sudden decrease in number of bees. From [${prevMeasurement.bees}] to [${measurement.bees}] `);
+  }
+  return abnormalities;
+};
+
+const findAbnormalities = measurements => {
+  if (measurements.length < 1) {
+    return [];
+  } else if (measurements.length === 1) {
+    const measurement = measurements[measurements.length - 1];
+    return findAbsoluteAbnormalities(measurement);
+  } else {
+    const measurement = measurements[measurements.length - 1];
+    const prevMeasurement = measurements[measurements.length - 2];
+    return [
+      ...findAbsoluteAbnormalities(measurement),
+      ...findRelativeAbnormalities(prevMeasurement, measurement)
+    ];
+  }
 };
 
 const notifyUser = (abnormalities, auth) => {
