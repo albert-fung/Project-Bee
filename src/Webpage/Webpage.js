@@ -72,7 +72,7 @@ export default class WebpageContainer extends React.Component {
             {/*Nav-bar using Routers to create Single page application*/}
             <nav className="nav-bar">
               <h1 className="header text-center"><span className="black">Project</span><span className="orange">Bee</span></h1>
-              <span onClick={this.HandleDropdown} className="dropdown-btn"><i class="fas fa-bars fa-2x"></i></span>
+              <span onClick={this.HandleDropdown} className="dropdown-btn"><i className="fas fa-bars fa-2x"/></span>
               <ul id="nav-menu" className="nav-menu">
                 <li>
                   <Link className="nav-element" to="/">
