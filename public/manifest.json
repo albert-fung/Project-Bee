@@ -1,0 +1,4 @@
+{
+  // enable browser to recieve messages
+  "gcm_sender_id": "103953800507"
+}
