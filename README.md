@@ -2,7 +2,7 @@
 ## CEG4912 Capstone project 
 For the hardware portion of this project: [Click Here](https://github.com/YanuG/project-bee)
 ## Demo
-View it online here: https://projectbees.herokuapp.com/
+View it online here: https://beehive-project-ccf6a.firebaseapp.com/
 
 ## Software used 
 - ReactJS 
