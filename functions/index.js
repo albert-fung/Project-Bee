@@ -63,9 +63,25 @@ const findAbnormalities = measurements => {
   return abnormalities;
 };
 
-const notifyUser = (abnormalities, auth) => {
+const notifyUser = async (abnormalities, auth) => {
   // Todo: Notify user on weirdness
   // Todo: Keep track of when user was last notified (as to not spam them)
+  //const token = auth.uid.get.token()
+  const message = {
+    token,
+    notification: {
+      title,
+      body
+    },
+    webpush: {
+      fcm_options: {
+        link: ""
+      }
+    }
+  };
+  return admin.messaging().send(message);
+
+
 };
 
 exports.addMeasurements = functions.firestore
