@@ -5,11 +5,9 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
 import MyHives from "./MyHives/MyHives";
-
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFlask} from "@fortawesome/free-solid-svg-icons/faFlask";
 import {faUsers} from "@fortawesome/free-solid-svg-icons/faUsers";
-import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
 import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
 import {faLock} from "@fortawesome/free-solid-svg-icons/faLock";
 import {faUnlock} from "@fortawesome/free-solid-svg-icons/faUnlock";
@@ -31,6 +29,7 @@ export default class WebpageContainer extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.onClustersUpdated = this.onClustersUpdated.bind(this);
     this.HandleDropdown= this.HandleDropdown.bind(this);
+    this.LoginLogoutIcon = this.LoginLogoutIcon.bind(this);
   }
 
   async logOut() {
@@ -67,13 +66,30 @@ export default class WebpageContainer extends React.Component {
       }
     });
   }
+  //Checks if user is logged in and will present respective icon (log in or log out)
+  LoginLogoutIcon() {
+   return this.state.user != null ? 
+   <li>
+      <button className="nav-element logout-btn" onClick={this.logOut}>
+        <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
+      </button>
+    </li> 
+    :
+    <li>
+      <Link className="nav-element" to="/Log-In">
+        <FontAwesomeIcon icon={faLock}/><span>Login</span>
+      </Link>
+    </li> 
+
+  }
+  // Toggling dropdown in mobile mode vs desktop mode 
   HandleDropdown(){
-  // Toggling dropdown in mobile mode
   var navbar=document.getElementById('nav-menu');
   navbar.classList == 'nav-menu' ? 
   navbar.classList.add('displaymenumobile'):
   navbar.classList.remove('displaymenumobile');
   }
+
   render() {
     return (
       <div id="front-page">
@@ -81,14 +97,14 @@ export default class WebpageContainer extends React.Component {
           <div id="Router-container">
             {/*Nav-bar using Routers to create Single page application*/}
             <nav className="nav-bar">
-              <h1 className="header text-center"><span className="black">Project</span><span className="orange">Bee</span></h1>
+            <Link to="/">
+              <h1 className="header text-center">
+                <span className="black">Project</span>
+                <span className="orange">Bee</span>
+              </h1>
+            </Link>
               <span onClick={this.HandleDropdown} className="dropdown-btn"><FontAwesomeIcon size={"2x"} icon={faBars}/></span>
               <ul id="nav-menu" className="nav-menu">
-                <li>
-                  <Link className="nav-element" to="/">
-                    <FontAwesomeIcon icon={faHome}/><span className="">Home</span>
-                  </Link>
-                </li>
                 <li>
                   <Link className="nav-element" to="/My-Hive">
                     <FontAwesomeIcon icon={faFlask}/><span>My Hives</span>
@@ -110,16 +126,7 @@ export default class WebpageContainer extends React.Component {
                     <FontAwesomeIcon icon={faCode}/><span>Open Source</span>
                   </Link>
                 </li>
-                <li>
-                  <Link className="nav-element" to="/Log-In">
-                    <FontAwesomeIcon icon={faLock}/><span>Login</span>
-                  </Link>
-                </li>
-                <li>
-                  <button className="nav-element logout-btn" onClick={this.logOut}>
-                    <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
-                  </button>
-                </li>
+                {this.LoginLogoutIcon()}
               </ul>
              
             </nav>
@@ -135,7 +142,6 @@ export default class WebpageContainer extends React.Component {
             </Suspense>
           </div>
         </Router>
-
       </div>
     );
   }
