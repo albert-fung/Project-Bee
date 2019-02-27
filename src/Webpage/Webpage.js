@@ -34,6 +34,7 @@ export default class WebpageContainer extends React.Component {
 
   async logOut() {
     await auth.signOut();
+    window.location.reload(false); 
   }
 
   onClustersUpdated(snapshot) {
