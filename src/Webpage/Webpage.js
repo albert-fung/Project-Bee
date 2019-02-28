@@ -23,7 +23,7 @@ export default class WebpageContainer extends React.Component {
     super(props);
     this.state = {
       error: null,
-      user: null,
+      user: "",
       clusters: []
     };
     this.logOut = this.logOut.bind(this);
@@ -69,19 +69,32 @@ export default class WebpageContainer extends React.Component {
   }
   //Checks if user is logged in and will present respective icon (log in or log out)
   LoginLogoutIcon() {
-   return this.state.user != null ? 
-   <li>
-      <button className="nav-element logout-btn" onClick={this.logOut}>
-        <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
-      </button>
-    </li> 
-    :
+   return this.state.user == null ? 
     <li>
       <Link className="nav-element" to="/Log-In">
         <FontAwesomeIcon icon={faLock}/><span>Login</span>
       </Link>
     </li> 
-
+    :
+    //if user is logged in 
+    <span>
+      <li>
+        <Link className="nav-element" to="/My-Hive">
+          <FontAwesomeIcon icon={faFlask}/><span>My Hives</span>
+        </Link>
+      </li>
+      <li>
+      <Link className="nav-element" to="/My-Clusters">
+      {/* Todo: unique icon for clusters */}
+        <FontAwesomeIcon icon={faFlask}/><span>My Clusters</span>
+      </Link>
+    </li>
+      <li>
+        <button className="nav-element logout-btn" onClick={this.logOut}>
+          <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
+        </button>
+      </li> 
+    </span>
   }
   // Toggling dropdown in mobile mode vs desktop mode 
   HandleDropdown(){
@@ -106,17 +119,7 @@ export default class WebpageContainer extends React.Component {
             </Link>
               <span onClick={this.HandleDropdown} className="dropdown-btn"><FontAwesomeIcon size={"2x"} icon={faBars}/></span>
               <ul id="nav-menu" className="nav-menu">
-                <li>
-                  <Link className="nav-element" to="/My-Hive">
-                    <FontAwesomeIcon icon={faFlask}/><span>My Hives</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="nav-element" to="/My-Clusters">
-                    {/* Todo: unique icon for clusters */}
-                    <FontAwesomeIcon icon={faFlask}/><span>My Clusters</span>
-                  </Link>
-                </li>
+
                 <li>
                   <Link className="nav-element" to="/Public-Data">
                     <FontAwesomeIcon icon={faUsers}/><span>Public Data</span>
