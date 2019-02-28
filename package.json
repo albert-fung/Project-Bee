@@ -5,6 +5,7 @@
   "dependencies": {
     "chart.js": "^2.7.2",
     "firebase": "^5.3.0",
+    "firebase-functions": "^2.2.0",
     "radium": "^0.25.0",
     "react": "^16.5.2",
     "react-animations": "^1.0.0",

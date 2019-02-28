@@ -14,8 +14,8 @@
     ],
     "rewrites": [
       {
-        "source": "/api/addMeasurements",
-        "function": "addMeasurements"
+        "source": "/api/alertAllUsers",
+        "function": "alertAllUsers"
       },
       {
         "source": "**",
