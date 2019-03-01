@@ -180,3 +180,22 @@ exports.alertAllUsers = functions.https.onRequest(async(req, res) => {
   await notifyAllUsers(title, body);
   res.send({message: "Sent"});
 });
+
+const saveMeasurement = async (clusterId, hiveId, {date, ...rest}) => admin.firestore()
+  .collection("measurements")
+  .doc(clusterId)
+  .collection("hives")
+  .doc(hiveId)
+  .collection("measurements")
+  .add({date: new Date(date), ...rest});
+
+exports.addMeasurementsToBuffer = functions.https.onRequest(async(req, res) => {
+  const {clusterId, hiveId, measurements} = req.body;
+
+  await Promise.all(measurements.map(m => saveMeasurement(clusterId, hiveId, m)));
+  const abnormalities = findAbnormalities(measurements);
+  if (abnormalities.length) {
+    await notifyAllUsers("One of your hives may be in trouble!", abnormalities.join("\n"));
+  }
+  return res.send({message: "Buffer updated"})
+});

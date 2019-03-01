@@ -18,6 +18,10 @@
         "function": "alertAllUsers"
       },
       {
+        "source": "/api/addMeasurements",
+        "function": "addMeasurementsToBuffer"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
