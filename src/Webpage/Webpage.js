@@ -23,6 +23,7 @@ export default class WebpageContainer extends React.Component {
     super(props);
     this.state = {
       error: null,
+      isLoaded:false,
       user: "",
       clusters: []
     };
@@ -34,7 +35,8 @@ export default class WebpageContainer extends React.Component {
 
   async logOut() {
     await auth.signOut();
-    window.location.reload(false); 
+    //redirect to home screen after logging out
+    setTimeout(function(){document.location.href = "/"},500);
   }
 
   onClustersUpdated(snapshot) {
@@ -58,18 +60,25 @@ export default class WebpageContainer extends React.Component {
   componentDidMount() {
     auth.onAuthStateChanged(user => {
       if (user) {
-        this.setState({user});
+        this.setState({
+          user,
+          isLoaded:true
+        });
         firestore.collection("clusters")
           .where("owners", "array-contains", user.email)
           .onSnapshot(this.onClustersUpdated);
       } else {
-        this.setState({user: null})
+        this.setState({user: null,
+        isLoaded:true})
       }
     });
   }
   //Checks if user is logged in and will present respective icon (log in or log out)
   LoginLogoutIcon() {
-   return this.state.user == null ? 
+  if (!this.state.isLoaded){
+    return null;
+  }
+  return this.state.user == null ? 
     <li>
       <Link className="nav-element" to="/Log-In">
         <FontAwesomeIcon icon={faLock}/><span>Login</span>
@@ -96,6 +105,7 @@ export default class WebpageContainer extends React.Component {
       </li> 
     </span>
   }
+
   // Toggling dropdown in mobile mode vs desktop mode 
   HandleDropdown(){
   var navbar=document.getElementById('nav-menu');
