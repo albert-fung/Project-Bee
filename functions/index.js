@@ -1,5 +1,3 @@
-import {firestore} from "../src/Firebase";
-
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
@@ -114,17 +112,42 @@ const findAbnormalities = measurements => {
   }
 };
 
-const notifyUser = (abnormalities, auth) => {
-  // Todo: Notify user on weirdness
+const notifyAllUsers = async (title, body) => {
   // Todo: Keep track of when user was last notified (as to not spam them)
+  // Todo: Send only to owners of hive
+  const tokenSnaps = await admin.firestore()
+    .collection("tokens")
+    .get();
+  const messagePromises = [];
+  tokenSnaps.forEach(snap => {
+    const {token} = snap.data();
+    console.log("Sending notification to token:", token);
+    const message = {
+      token,
+      notification: {
+         // Todo: Include hive name in title
+        title, body
+      },
+      webpush: {
+        fcm_options: {
+          link: "https://beehive-project-ccf6a.firebaseapp.com"
+        }
+      }
+    };
+    messagePromises.push(admin.messaging().send(message));
+  });
+  return Promise.all(messagePromises);
 };
 
+
+
 exports.addMeasurements = functions.firestore
-  .document("/measurements/{clusterId}/hives/{hiveId}/buffer")
+  .document("/measurements/{clusterId}/hives/{hiveId}")
   .onUpdate(async (change, context) => {
     const buffer = change.after.buffer;
     if (buffer && buffer.length > 0 &&
     bufferChanged(change.before.buffer, buffer)) {
+      console.debug("Buffer has been updated");
       const measurements = buffer.sort(dateComparator);
       const {hiveId, clusterId} = context.params;
 
@@ -141,7 +164,8 @@ exports.addMeasurements = functions.firestore
         const recentMeasurements = getMostRecentMeasurements(measurements, archives);
         const abnormalities = findAbnormalities(measurements);
         if (abnormalities.length > 0) {
-          notifyUser(abnormalities, context.auth);
+          await notifyAllUsers("Warning, abnormalities detected in one of your hives!", abnormalities.join("\n"));
+
         }
         change.after.recentMeasurements = recentMeasurements;
       }
@@ -150,3 +174,28 @@ exports.addMeasurements = functions.firestore
       change.after.buffer = measurements;
     }
   });
+// Todo: Remove this function once notification debugging has been completed
+exports.alertAllUsers = functions.https.onRequest(async(req, res) => {
+  const {title, body} = req.body;
+  await notifyAllUsers(title, body);
+  res.send({message: "Sent"});
+});
+
+const saveMeasurement = async (clusterId, hiveId, {date, ...rest}) => admin.firestore()
+  .collection("measurements")
+  .doc(clusterId)
+  .collection("hives")
+  .doc(hiveId)
+  .collection("measurements")
+  .add({date: new Date(date), ...rest});
+
+exports.addMeasurementsToBuffer = functions.https.onRequest(async(req, res) => {
+  const {clusterId, hiveId, measurements} = req.body;
+
+  await Promise.all(measurements.map(m => saveMeasurement(clusterId, hiveId, m)));
+  const abnormalities = findAbnormalities(measurements);
+  if (abnormalities.length) {
+    await notifyAllUsers("One of your hives may be in trouble!", abnormalities.join("\n"));
+  }
+  return res.send({message: "Buffer updated"})
+});
