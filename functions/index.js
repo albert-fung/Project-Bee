@@ -1,10 +1,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
 
-const bufferChanged = (oldBuffer, newBuffer )=> {
+const bufferChanged = (oldBuffer, newBuffer) => {
   if (!oldBuffer && !newBuffer) {
     return false;
   }
@@ -62,16 +60,16 @@ const findAbsoluteAbnormalities = measurement => {
   if (measurement.air_quality < 2) {
     abnormalities.push(`Air quality is quite bad [${measurement.air_quality}]`);
   }
-  if (measurement.humidity < 40){
+  if (measurement.humidity < 40) {
     abnormalities.push(`Internal humidity is quite low [${measurement.air_quality}]`);
   }
-  if (measurement.humidity > 80){
+  if (measurement.humidity > 80) {
     abnormalities.push(`Internal humidity is quite high [${measurement.air_quality}]`);
   }
-  if (measurement.frequency > 300 && measurement.frequency < 500){
+  if (measurement.frequency > 300 && measurement.frequency < 500) {
     abnormalities.push(`Potential Spotting of the Queen Bee [${measurement.frequency}]`);
   }
-  if (measurement.frequency > 2000 && measurement.frequency < 3600){
+  if (measurement.frequency > 2000 && measurement.frequency < 3600) {
     abnormalities.push(`Colony feels a threat is nearby! [${measurement.frequency}]`);
   }
   return abnormalities;
@@ -84,10 +82,10 @@ const findRelativeAbnormalities = (prevMeasurement, measurement) => {
   if (measurement.mass < prevMeasurement.mass / 1.5) {
     abnormalities.push(`Sudden decrease in mass detected. From [${prevMeasurement.mass}] to [${measurement.mass}]`);
   }
-  if (measurement.temperature > prevMeasurement * 1.5){
+  if (measurement.temperature > prevMeasurement * 1.5) {
     abnormalities.push(`Sudden increase in temperature detected. From [${prevMeasurement.temperature}] to [${measurement.temperature}] `);
   }
-  if (measurement.temperature < prevMeasurement / 1.5){
+  if (measurement.temperature < prevMeasurement / 1.5) {
     abnormalities.push(`Sudden decrease in temperature detected. From [${prevMeasurement.temperature}] to [${measurement.temperature}] `);
   }
   if (measurement.bees < prevMeasurement * 1.5) {
@@ -112,33 +110,29 @@ const findAbnormalities = measurements => {
   }
 };
 
-const notifyAllUsers = async (title, body) => {
+const notifyHiveOwners = async (hiveOwners, title, body) => {
   // Todo: Keep track of when user was last notified (as to not spam them)
-  // Todo: Send only to owners of hive
-  const tokenSnaps = await admin.firestore()
-    .collection("tokens")
-    .get();
-  const messagePromises = [];
-  tokenSnaps.forEach(snap => {
-    const {token} = snap.data();
-    console.log("Sending notification to token:", token);
-    const message = {
-      token,
-      notification: {
-         // Todo: Include hive name in title
-        title, body
-      },
-      webpush: {
-        fcm_options: {
-          link: "https://beehive-project-ccf6a.firebaseapp.com"
-        }
-      }
-    };
-    messagePromises.push(admin.messaging().send(message));
-  });
-  return Promise.all(messagePromises);
-};
 
+  console.info(`${title}: Notifying ${hiveOwners}`);
+  await Promise.all(hiveOwners.map(async ownerEmail => {
+    const tokenSnap = await admin.firestore()
+      .collection("tokens")
+      .doc(ownerEmail)
+      .get();
+    if (tokenSnap.exists) {
+      const {token} = tokenSnap.data();
+      const message = {
+        token,
+        notification: {title, body},
+        webpush: {
+          fcm_options: {link: "https://beehive-project-ccf6a.firebaseapp.com"}
+        }
+      };
+      console.log("Sending notification to token:", token);
+      await admin.messaging().send(message);
+    }
+  }));
+};
 
 
 exports.addMeasurements = functions.firestore
@@ -146,7 +140,7 @@ exports.addMeasurements = functions.firestore
   .onUpdate(async (change, context) => {
     const buffer = change.after.buffer;
     if (buffer && buffer.length > 0 &&
-    bufferChanged(change.before.buffer, buffer)) {
+      bufferChanged(change.before.buffer, buffer)) {
       console.debug("Buffer has been updated");
       const measurements = buffer.sort(dateComparator);
       const {hiveId, clusterId} = context.params;
@@ -164,7 +158,7 @@ exports.addMeasurements = functions.firestore
         const recentMeasurements = getMostRecentMeasurements(measurements, archives);
         const abnormalities = findAbnormalities(measurements);
         if (abnormalities.length > 0) {
-          await notifyAllUsers("Warning, abnormalities detected in one of your hives!", abnormalities.join("\n"));
+          await notifyHiveOwners("Warning, abnormalities detected in one of your hives!", abnormalities.join("\n"));
 
         }
         change.after.recentMeasurements = recentMeasurements;
@@ -175,11 +169,19 @@ exports.addMeasurements = functions.firestore
     }
   });
 // Todo: Remove this function once notification debugging has been completed
-exports.alertAllUsers = functions.https.onRequest(async(req, res) => {
+exports.alertAllUsers = functions.https.onRequest(async (req, res) => {
   const {title, body} = req.body;
-  await notifyAllUsers(title, body);
+  await notifyHiveOwners(title, body);
   res.send({message: "Sent"});
 });
+
+const getCluster = async clusterId => {
+  const clusterSnap = await admin.firestore()
+    .collection('clusters')
+    .doc(clusterId)
+    .get();
+  return clusterSnap.data();
+};
 
 const saveMeasurement = async (clusterId, hiveId, {date, ...rest}) => admin.firestore()
   .collection("measurements")
@@ -189,13 +191,21 @@ const saveMeasurement = async (clusterId, hiveId, {date, ...rest}) => admin.fire
   .collection("measurements")
   .add({date: new Date(date), ...rest});
 
-exports.addMeasurementsToBuffer = functions.https.onRequest(async(req, res) => {
+exports.addMeasurementsToBuffer = functions.https.onRequest(async (req, res) => {
   const {clusterId, hiveId, measurements} = req.body;
+  console.info("Saving measurement for:", clusterId, hiveId);
+  // Save measurements to archives
+  await Promise.all(measurements.map(measurement =>
+    saveMeasurement(clusterId, hiveId, measurement)));
 
-  await Promise.all(measurements.map(m => saveMeasurement(clusterId, hiveId, m)));
+  // Scan for abnormalities
   const abnormalities = findAbnormalities(measurements);
-  if (abnormalities.length) {
-    await notifyAllUsers("One of your hives may be in trouble!", abnormalities.join("\n"));
+  if (abnormalities.length > 0) {
+    const {owners, hives, name: clusterName} = await getCluster(clusterId);
+    const {name: hiveName} = hives[hiveId];
+
+    const title = `Abnormalities detected in ${clusterName}/${hiveName}`;
+    await notifyHiveOwners(owners, title, abnormalities.join("\n"));
   }
   return res.send({message: "Buffer updated"})
 });
