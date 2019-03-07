@@ -3,22 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@fortawesome/fontawesome-svg-core": "^1.2.13",
     "@fortawesome/free-brands-svg-icons": "^5.7.0",
     "@fortawesome/free-solid-svg-icons": "^5.7.0",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "chart.js": "^2.7.3",
-    "firebase": "^5.8.1",
     "radium": "^0.25.1",
     "react": "^16.7.0",
-=======
     "chart.js": "^2.7.2",
     "firebase": "^5.3.0",
     "firebase-functions": "^2.2.0",
-    "radium": "^0.25.0",
-    "react": "^16.5.2",
->>>>>>> origin/master
     "react-animations": "^1.0.0",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.7.0",
