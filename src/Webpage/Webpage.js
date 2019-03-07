@@ -116,6 +116,7 @@ export default class WebpageContainer extends React.Component {
           <div id="Router-container">
             {/*Nav-bar using Routers to create Single page application*/}
             <nav className="nav-bar">
+<<<<<<< HEAD
             <Link to="/">
               <h1 className="header text-center">
                 <span className="black">Project</span>
@@ -123,6 +124,10 @@ export default class WebpageContainer extends React.Component {
               </h1>
             </Link>
               <span onClick={this.HandleDropdown} className="dropdown-btn"><FontAwesomeIcon size={"2x"} icon={faBars}/></span>
+=======
+              <h1 className="header text-center"><span className="black">Project</span><span className="orange">Bee</span></h1>
+              <span onClick={this.HandleDropdown} className="dropdown-btn"><i className="fas fa-bars fa-2x"/></span>
+>>>>>>> origin/master
               <ul id="nav-menu" className="nav-menu">
 
                 <li>
