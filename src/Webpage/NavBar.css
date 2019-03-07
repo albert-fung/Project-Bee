@@ -46,8 +46,8 @@
   padding-right: 10px;
 }
 /* nav bar icons */
-.fas {
-  padding-right:8px;
+.nav-element span {
+  padding-left:8px;
 }
 .dropdown-btn{
   display:none;

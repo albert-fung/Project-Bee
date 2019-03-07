@@ -7,18 +7,21 @@ import ReactForm from "../../Shared/ReactForm";
 import SignIn from '../SignUp/SignUp';
 import * as auth from "../../Authentication";
 
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGoogle,faFacebook,faGithub,faTwitter} from "@fortawesome/free-brands-svg-icons";
+
 const styles = {
   /* Animation for stuttering Log-in-elements */
    input_animation:{
-    animation: 'x 1.5s',
+    animation: 'x 0.4s',
     animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
   },
   logbtn_animation:{
-    animation: 'x 2s',
+    animation: 'x .5s',
     animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
   },
   vendorbtn_animation:{
-    animation: 'x 2.5s',
+    animation: 'x .8s',
     animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
   }
 };
@@ -76,10 +79,10 @@ export default class LogIn extends ReactForm {
             </form>
             <hr/>
               <div style={styles.vendorbtn_animation} id="round-vendorgroup">
-                <RoundButton symbol="fa-google" name="G+"/>
-                <RoundButton symbol="fa-facebook" name="FB"/>
-                <RoundButton symbol="fa-twitter" name="Twitter"/>
-                <RoundButton symbol="fa-github" name="GitHub"/>
+                <RoundButton symbol={faGoogle} name="G+"/>
+                <RoundButton symbol={faFacebook} name="FB"/>
+                <RoundButton symbol={faTwitter} name="Twitter"/>
+                <RoundButton symbol={faGithub} name="GitHub"/>
               </div>
             <div className="signup">
               Don't have an account?&nbsp; 
@@ -97,7 +100,7 @@ class RoundButton extends React.Component {
     return (
       <div className="roundbtn-container">
         <button className={"round-vendorbtn " + this.props.color}>
-          <i className={"fab fa-2x " + this.props.symbol}/>
+          <FontAwesomeIcon icon={this.props.symbol} size={"2x"}/>
         </button>
         <div className="vendor-name">{this.props.name}</div>
       </div>

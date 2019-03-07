@@ -1,13 +1,16 @@
-import React from 'react';
+import React,{lazy,Suspense} from 'react';
 import './NavBar.css';
 import LandingPage from "./Landing-Page/Home";
-import LogIn from "./Log-In/Log-In";
-import SignUp from "./SignUp/SignUp";
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
-import {auth, firestore} from "../Firebase";
 import MyHives from "./MyHives/MyHives";
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import {auth, firestore} from "../Firebase";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFlask,faUsers,faCode,faLock,faUnlock,faBars} from "@fortawesome/free-solid-svg-icons";
 
+
+const LogIn= lazy(()=>import("./Log-In/Log-In"));
+const SignUp= lazy(()=>import("./SignUp/SignUp"));
 
 export default class WebpageContainer extends React.Component {
 
@@ -15,16 +18,20 @@ export default class WebpageContainer extends React.Component {
     super(props);
     this.state = {
       error: null,
-      user: null,
+      isLoaded:false,
+      user: "",
       clusters: []
     };
     this.logOut = this.logOut.bind(this);
     this.onClustersUpdated = this.onClustersUpdated.bind(this);
     this.HandleDropdown= this.HandleDropdown.bind(this);
+    this.LoginLogoutIcon = this.LoginLogoutIcon.bind(this);
   }
 
   async logOut() {
     await auth.signOut();
+    //redirect to home screen after logging out
+    setTimeout(function(){document.location.href = "/"},500);
   }
 
   onClustersUpdated(snapshot) {
@@ -48,22 +55,60 @@ export default class WebpageContainer extends React.Component {
   componentDidMount() {
     auth.onAuthStateChanged(user => {
       if (user) {
-        this.setState({user});
+        this.setState({
+          user,
+          isLoaded:true
+        });
         firestore.collection("clusters")
           .where("owners", "array-contains", user.email)
           .onSnapshot(this.onClustersUpdated);
       } else {
-        this.setState({user: null})
+        this.setState({user: null,
+        isLoaded:true})
       }
     });
   }
+  //Checks if user is logged in and will present respective icon (log in or log out)
+  LoginLogoutIcon() {
+  if (!this.state.isLoaded){
+    return null;
+  }
+  return this.state.user == null ? 
+    <li>
+      <Link className="nav-element" to="/Log-In">
+        <FontAwesomeIcon icon={faLock}/><span>Login</span>
+      </Link>
+    </li> 
+    :
+    //if user is logged in 
+    <span>
+      <li>
+        <Link className="nav-element" to="/My-Hive">
+          <FontAwesomeIcon icon={faFlask}/><span>My Hives</span>
+        </Link>
+      </li>
+      <li>
+      <Link className="nav-element" to="/My-Clusters">
+      {/* Todo: unique icon for clusters */}
+        <FontAwesomeIcon icon={faFlask}/><span>My Clusters</span>
+      </Link>
+    </li>
+      <li>
+        <button className="nav-element logout-btn" onClick={this.logOut}>
+          <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
+        </button>
+      </li> 
+    </span>
+  }
+
+  // Toggling dropdown in mobile mode vs desktop mode 
   HandleDropdown(){
-  // Toggling dropdown in mobile mode
   var navbar=document.getElementById('nav-menu');
   navbar.classList == 'nav-menu' ? 
   navbar.classList.add('displaymenumobile'):
   navbar.classList.remove('displaymenumobile');
   }
+
   render() {
     return (
       <div id="front-page">
@@ -71,45 +116,31 @@ export default class WebpageContainer extends React.Component {
           <div id="Router-container">
             {/*Nav-bar using Routers to create Single page application*/}
             <nav className="nav-bar">
+<<<<<<< HEAD
+            <Link to="/">
+              <h1 className="header text-center">
+                <span className="black">Project</span>
+                <span className="orange">Bee</span>
+              </h1>
+            </Link>
+              <span onClick={this.HandleDropdown} className="dropdown-btn"><FontAwesomeIcon size={"2x"} icon={faBars}/></span>
+=======
               <h1 className="header text-center"><span className="black">Project</span><span className="orange">Bee</span></h1>
               <span onClick={this.HandleDropdown} className="dropdown-btn"><i className="fas fa-bars fa-2x"/></span>
+>>>>>>> origin/master
               <ul id="nav-menu" className="nav-menu">
-                <li>
-                  <Link className="nav-element" to="/">
-                    <span><i className="fas fa-home"/>Home</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="nav-element" to="/My-Hive">
-                    <span><i className="fas fa-flask"/>My Hives</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="nav-element" to="/My-Clusters">
-                    {/* Todo: unique icon for clusters */}
-                    <span><i className="fas fa-flask"/>My Clusters</span>
-                  </Link>
-                </li>
+
                 <li>
                   <Link className="nav-element" to="/Public-Data">
-                    <span><i className="fas fa-users"/>Public Data</span>
+                    <FontAwesomeIcon icon={faUsers}/><span>Public Data</span>
                   </Link>
                 </li>
                 <li>
                   <Link className="nav-element" to="/Open-Source">
-                    <span><i className="fas fa-code"/>Open Source</span>
+                    <FontAwesomeIcon icon={faCode}/><span>Open Source</span>
                   </Link>
                 </li>
-                <li>
-                  <Link className="nav-element" to="/Log-In">
-                    <span><i className="fas fa-lock"/>Login</span>
-                  </Link>
-                </li>
-                <li>
-                  <button className="nav-element logout-btn" onClick={this.logOut}>
-                    <span><i className="fas fa-lock-open"/>Logout</span>
-                  </button>
-                </li>
+                {this.LoginLogoutIcon()}
               </ul>
              
             </nav>
@@ -117,13 +148,14 @@ export default class WebpageContainer extends React.Component {
             <Route path="/" exact={true} component={LandingPage}/>
             <Route path="/My-Hive" render={() => <MyHives clusters={this.state.clusters}/>}/>
             <Route path="/My-Clusters" render={() => <MyClusters clusters={this.state.clusters}/>}/>
-            <Route path="/Public-Data" render={() => <h1>RESERVERED FOR PUBLIC DATA PAGE</h1>}/>
+            <Route path="/Public-Data" render={() => <h1>RESERVERED FOR PUBLIC DATA PAGE </h1>}/>
             <Route path="/Open-Source" render={() => <h1>RESERVERED FOR OPEN SOURCE PAGE</h1>}/>
-            <Route path="/Log-In" component={LogIn}/>
-            <Route path="/Sign-Up" component={SignUp}/>
+            <Suspense fallback={<div>loading</div>}>
+              <Route path="/Log-In" component={LogIn}/>
+              <Route path="/Sign-Up" component={SignUp}/>
+            </Suspense>
           </div>
         </Router>
-
       </div>
     );
   }
