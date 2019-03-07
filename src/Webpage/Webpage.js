@@ -1,17 +1,12 @@
 import React,{lazy,Suspense} from 'react';
 import './NavBar.css';
 import LandingPage from "./Landing-Page/Home";
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
-import {auth, firestore} from "../Firebase";
 import MyHives from "./MyHives/MyHives";
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import {auth, firestore} from "../Firebase";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFlask} from "@fortawesome/free-solid-svg-icons/faFlask";
-import {faUsers} from "@fortawesome/free-solid-svg-icons/faUsers";
-import {faCode} from "@fortawesome/free-solid-svg-icons/faCode";
-import {faLock} from "@fortawesome/free-solid-svg-icons/faLock";
-import {faUnlock} from "@fortawesome/free-solid-svg-icons/faUnlock";
-import {faBars} from "@fortawesome/free-solid-svg-icons/faBars";
+import {faFlask,faUsers,faCode,faLock,faUnlock,faBars} from "@fortawesome/free-solid-svg-icons";
 
 
 const LogIn= lazy(()=>import("./Log-In/Log-In"));
@@ -148,7 +143,7 @@ export default class WebpageContainer extends React.Component {
             <Route path="/" exact={true} component={LandingPage}/>
             <Route path="/My-Hive" render={() => <MyHives clusters={this.state.clusters}/>}/>
             <Route path="/My-Clusters" render={() => <MyClusters clusters={this.state.clusters}/>}/>
-            <Route path="/Public-Data" render={() => <h1>RESERVERED FOR PUBLIC DATA PAGE</h1>}/>
+            <Route path="/Public-Data" render={() => <h1>RESERVERED FOR PUBLIC DATA PAGE </h1>}/>
             <Route path="/Open-Source" render={() => <h1>RESERVERED FOR OPEN SOURCE PAGE</h1>}/>
             <Suspense fallback={<div>loading</div>}>
               <Route path="/Log-In" component={LogIn}/>

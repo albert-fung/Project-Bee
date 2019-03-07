@@ -8,23 +8,20 @@ import SignIn from '../SignUp/SignUp';
 import * as auth from "../../Authentication";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {fab} from "@fortawesome/free-brands-svg-icons"
-import {faGoogle} from "@fortawesome/free-brands-svg-icons/faGoogle";
-import {faFacebook} from "@fortawesome/free-brands-svg-icons/faFacebook";
-import {faGithub} from "@fortawesome/free-brands-svg-icons/faGithub";
-import {faTwitter} from "@fortawesome/free-brands-svg-icons/faTwitter";
+import {faGoogle,faFacebook,faGithub,faTwitter} from "@fortawesome/free-brands-svg-icons";
+
 const styles = {
   /* Animation for stuttering Log-in-elements */
    input_animation:{
-    animation: 'x 1.5s',
+    animation: 'x 0.4s',
     animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
   },
   logbtn_animation:{
-    animation: 'x 2s',
+    animation: 'x .5s',
     animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
   },
   vendorbtn_animation:{
-    animation: 'x 2.5s',
+    animation: 'x .8s',
     animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
   }
 };
