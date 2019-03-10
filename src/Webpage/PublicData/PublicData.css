@@ -1,0 +1,32 @@
+#PublicData_container { 
+  margin: 5%;
+}
+
+#DownloadCard_container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin:5% auto;
+  width:60%;
+  border-radius:15px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1)
+}
+#DownloadCard_container > h2 { 
+  margin-bottom:0;
+}
+#DownloadCard_container > h4 { 
+  margin-top:0;
+}
+#DownloadCard_container > button { 
+  margin: 8% 0;
+  padding:4% 8%;
+  border-radius:10px;
+  outline:none;
+  border:none;
+  color:white;
+  background-color: #039BE5;
+}
+.card_rows { 
+  display:grid;
+  grid-template-columns: auto auto auto auto
+}
