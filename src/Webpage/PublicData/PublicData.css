@@ -7,18 +7,21 @@
   flex-direction: column;
   align-items: center;
   margin:5% auto;
-  width:60%;
+  width:90%;
   border-radius:15px;
   border: 0.5px solid rgba(0, 0, 0, 0.1)
 }
 #DownloadCard_container > h2 { 
   margin-bottom:0;
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align: center;
 }
 #DownloadCard_container > h4 { 
   margin-top:0;
 }
 #DownloadCard_container > button { 
-  margin: 8% 0;
+  margin: 0% 0 5% 0;
   padding:4% 8%;
   border-radius:10px;
   outline:none;
@@ -26,7 +29,17 @@
   color:white;
   background-color: #039BE5;
 }
+#DownloadCard_container > select { 
+  margin: auto 0 10px 0;
+}
 .card_rows { 
   display:grid;
-  grid-template-columns: auto auto auto auto
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-auto-rows: 1fr;
+}
+
+.Hive-select {
+  width:40%;
+  margin-bottom: 2%;
+  overflow-wrap: break-word;
 }
