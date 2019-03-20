@@ -66,7 +66,7 @@ export default class PublicData extends React.Component {
   render() {
     return(
       <div id="PublicData_container">
-        <h2>Search Results</h2>
+        <h2>Public Hives</h2>
         <div class="card_rows">
           {this.CreateDownloadCards()}
         </div> 
@@ -81,7 +81,9 @@ export default class PublicData extends React.Component {
 class DownloadCard extends React.Component { 
   constructor(){
     super()
-    this.state={hiveSelected:null}
+    this.state={
+      hiveSelected:null,
+      LoadingDownloadData:false}
     this.getHivedata=this.getHivedata.bind(this);
     this.formatDate = this.formatDate.bind(this);
     this.createCSV = this.createCSV.bind(this);
@@ -91,25 +93,29 @@ class DownloadCard extends React.Component {
    * @param {string} id ID provided by firebase for respective hive
    */
   getMeasurementData(id){
-    firestore.collection("measurements")
-      .doc(id)
-      .collection("hives")
-      .doc(this.state.hiveSelected)
-      .collection("measurements")
-      .orderBy("date","desc")
-      .limit(31*24*4)
-      .get()
-      .then(snapshot=>{
-        let data = snapshot.docs.map(snap =>({
-          id:snap.id,
-          ...snap.data()
-        })).reverse();
+    if(this.state.hiveSelected) {
+      this.setState({LoadingDownloadData:true})
+      firestore.collection("measurements")
+        .doc(id)
+        .collection("hives")
+        .doc(this.state.hiveSelected)
+        .collection("measurements")
+        .orderBy("date","desc")
+        .limit(31*24*4)
+        .get()
+        .then(snapshot=>{
+          let data = snapshot.docs.map(snap =>({
+            id:snap.id,
+            ...snap.data()
+          })).reverse();
 
-        const times = data.map(measurement=>this.formatDate(measurement.date))
-        console.log(data[0]);
-        console.log(times[0]);
-        this.createCSV(data,times)
-      })
+          const times = data.map(measurement=>this.formatDate(measurement.date))
+          this.createCSV(data,times)
+        })
+    }
+  else {
+    alert("Please select a hive for your cluster you are trying to download.")
+  }
   }
   /**
    * 
@@ -142,6 +148,7 @@ class DownloadCard extends React.Component {
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", "Data.csv");
     document.body.appendChild(link); // Required for FF
+    this.setState({LoadingDownloadData:false})
     link.click();
 
   }
@@ -166,11 +173,13 @@ class DownloadCard extends React.Component {
   }
   /**
    * Sets this.state.hiveSelect to its currently selected value
+   * Selected value is from the dropdown provided
    * @param {DOM element} e 
    */
   HandleSelect(e){
     let hiveSelected = e.target.options[e.target.selectedIndex].value
-    this.setState({hiveSelected});
+    this.setState({hiveSelected})
+
   }
   render() { 
     return (
@@ -181,7 +190,9 @@ class DownloadCard extends React.Component {
             <option value={null} disabled selected>Choose a Hive</option>
             {this.getHivedata()}
           </select>
-        <button onClick={()=>this.getMeasurementData(this.props.id)}>Download</button>
+        <button onClick={()=>this.getMeasurementData(this.props.id)}>
+        {this.state.LoadingDownloadData ? 'Loading' : 'Download'}
+        </button>
       </div>
     )
   }
