@@ -8,6 +8,7 @@ import {auth, firestore} from "../Firebase";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFlask,faUsers,faCode,faLock,faUnlock,faBars} from "@fortawesome/free-solid-svg-icons";
 import PublicData from './PublicData/PublicData';
+import OpenSource from './Open-Source/OpenSource';
 
 
 const LogIn= lazy(()=>import("./Log-In/Log-In"));
@@ -145,7 +146,7 @@ export default class WebpageContainer extends React.Component {
             <Route path="/My-Hive" render={() => <MyHives clusters={this.state.clusters}/>}/>
             <Route path="/My-Clusters" render={() => <MyClusters clusters={this.state.clusters}/>}/>
             <Route path="/Public-Data" render={() => <PublicData></PublicData>}/>
-            <Route path="/Open-Source" render={() => <h1>RESERVERED FOR OPEN SOURCE PAGE</h1>}/>
+            <Route path="/Open-Source" render={() => <OpenSource></OpenSource>}/>
             <Suspense fallback={<div>loading</div>}>
               <Route path="/Log-In" component={LogIn}/>
               <Route path="/Sign-Up" component={SignUp}/>
