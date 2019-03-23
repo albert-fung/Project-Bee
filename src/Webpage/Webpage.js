@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import MyClusters from "./MyClusters/MyClusters";
 import {auth, firestore} from "../Firebase";
 import MyHives from "./MyHives/MyHives";
+import AddToHomeScreen from "../Components/AddToHomeScreen";
 
 
 export default class WebpageContainer extends React.Component {
@@ -111,7 +112,7 @@ export default class WebpageContainer extends React.Component {
                   </button>
                 </li>
               </ul>
-             
+             <AddToHomeScreen/>
             </nav>
             {/*Routes that the above links point to TODO complete three other pages and connect them */}
             <Route path="/" exact={true} component={LandingPage}/>
