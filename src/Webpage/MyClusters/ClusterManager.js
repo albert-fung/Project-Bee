@@ -6,13 +6,20 @@ import SingleInputForm from "../../Shared/SingleInputForm";
 class HiveBadge extends React.Component {
   render() {
     const publicClass = this.props.public ? "hive--public" : "hive--private";
+    const {id, onRequestDelete} = this.props;
     return (
-      <p className={publicClass + " hive-badge"}>
+      <li className={publicClass + " hive-badge"}>
         {this.props.name}
-      </p>);
+        <button type="button"
+                className="btn"
+                title="Delete Hive"
+                onClick={() => onRequestDelete(id)}>
+          &times;
+        </button>
+      </li>
+    );
   }
 }
-
 
 export default class ClusterManager extends React.Component {
 
@@ -20,6 +27,7 @@ export default class ClusterManager extends React.Component {
     super(props);
     this.addHive = this.addHive.bind(this);
     this.addOwner = this.addOwner.bind(this);
+    this.deleteHive = this.deleteHive.bind(this);
   }
 
   async addHive(name) {
@@ -34,6 +42,21 @@ export default class ClusterManager extends React.Component {
     await firestore.collection("clusters")
       .doc(this.props.id)
       .update({[path]: {name, public: true}});
+  }
+
+  async deleteHive(hiveId) {
+    if (!this.props.id) {
+      throw new Error("Cluster missing an ID");
+    }
+    try {
+      debugger;
+      const newHives = this.props.hives.filter(({id}) => id !== hiveId);
+      await firestore.collection("clusters")
+        .doc(this.props.id)
+        .update({hives: newHives});
+    } catch (error) {
+      console.error("Error removing hive", error)
+    }
   }
 
   static async userExists(email) {
@@ -54,6 +77,7 @@ export default class ClusterManager extends React.Component {
         .update({owners: fireFieldValue.arrayUnion(email)});
     }
   }
+
 
   render() {
     if (this.props) {
@@ -90,7 +114,10 @@ export default class ClusterManager extends React.Component {
           <div className="row col-sm-4">
             <h3 className="col-md-6 cluster-manager__subheading">Hives:</h3>
             <ul className="col-md-6">
-              {this.props.hives.map(hive => <HiveBadge key={hive.id} {...hive}/>)}
+              {this.props.hives.map(hive =>
+                <HiveBadge
+                  key={hive.id} {...hive}
+                  onRequestDelete={this.deleteHive}/>)}
               <li>
                 <SingleInputForm label="+ Add Hive" onSubmit={this.addHive}>
                   <input type="text" placeholder="Hive Name" maxLength="100" autoComplete="off"/>
