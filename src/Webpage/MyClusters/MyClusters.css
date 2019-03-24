@@ -36,7 +36,10 @@
     user-select: none;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+}
+
+.hive-badge .btn:first-child{
+    margin-left: auto;
 }
 
 .cluster-manager__body {

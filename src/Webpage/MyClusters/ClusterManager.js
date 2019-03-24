@@ -5,25 +5,8 @@ import LocationForm from "./LocationForm";
 import {faEdit, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ClusterNameForm from "./ClusterNameForm";
+import HiveBadge from "./HiveBadge";
 
-
-class HiveBadge extends React.Component {
-  render() {
-    const publicClass = this.props.public ? "hive--public" : "hive--private";
-    const {id, onRequestDelete} = this.props;
-    return (
-      <li className={publicClass + " hive-badge"}>
-        {this.props.name}
-        <button type="button"
-                className="btn"
-                title="Delete Hive"
-                onClick={() => onRequestDelete(id)}>
-          &times;
-        </button>
-      </li>
-    );
-  }
-}
 
 export default class ClusterManager extends React.Component {
 
@@ -36,6 +19,7 @@ export default class ClusterManager extends React.Component {
     this.deleteCluster = this.deleteCluster.bind(this);
     this.saveClusterName = this.saveClusterName.bind(this);
     this.editClusterName = this.editClusterName.bind(this);
+    this.saveHiveName = this.saveHiveName.bind(this);
     this.state = {
       editingClusterName: false
     };
@@ -66,6 +50,30 @@ export default class ClusterManager extends React.Component {
         .update({hives: newHives});
     } catch (error) {
       console.error("Error removing hive", error)
+    }
+  }
+
+  async saveHiveName(editedHiveId, newHiveName) {
+    if (!this.props.id) {
+      throw new Error("Cluster missing an ID");
+    }
+    try{
+      const hives = this.props.hives.reduce((hiveMap, hiveRow) => {
+        const {id, ...hive} = hiveRow;
+
+        if (id !== editedHiveId) {
+          hiveMap[id] = hive;
+        } else {
+          hiveMap[id] = {...hive, name: newHiveName};
+        }
+        return hiveMap;
+      }, {});
+
+      await firestore.collection("clusters")
+        .doc(this.props.id)
+        .update({hives});
+    } catch (error) {
+      console.error("Cannot edit hive", error);
     }
   }
 
@@ -134,6 +142,7 @@ export default class ClusterManager extends React.Component {
   }
 
   render() {
+
     if (this.props) {
       return <div className="cluster-manager">
         <div className="cluster-manager__head">
@@ -175,6 +184,7 @@ export default class ClusterManager extends React.Component {
               {this.props.hives.map(hive =>
                 <HiveBadge
                   key={hive.id} {...hive}
+                  onRequestNameChange={this.saveHiveName}
                   onRequestDelete={this.deleteHive}/>)}
               <li>
                 <SingleInputForm label="+ Add Hive" onSubmit={this.addHive}>
@@ -198,7 +208,7 @@ export default class ClusterManager extends React.Component {
                     className="btn"
                     aria-label="Delete Owner"
                     onClick={() => this.deleteOwner(owner)}>
-                    &times;
+                    <FontAwesomeIcon icon={faTrash}/>
                   </button>
                 </li>))}
               <li>
