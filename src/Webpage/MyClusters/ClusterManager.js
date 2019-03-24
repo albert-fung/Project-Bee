@@ -28,6 +28,7 @@ export default class ClusterManager extends React.Component {
     this.addHive = this.addHive.bind(this);
     this.addOwner = this.addOwner.bind(this);
     this.deleteHive = this.deleteHive.bind(this);
+    this.deleteOwner = this.deleteOwner.bind(this);
   }
 
   async addHive(name) {
@@ -49,7 +50,6 @@ export default class ClusterManager extends React.Component {
       throw new Error("Cluster missing an ID");
     }
     try {
-      debugger;
       const newHives = this.props.hives.filter(({id}) => id !== hiveId);
       await firestore.collection("clusters")
         .doc(this.props.id)
@@ -76,6 +76,21 @@ export default class ClusterManager extends React.Component {
         .doc(this.props.id)
         .update({owners: fireFieldValue.arrayUnion(email)});
     }
+  }
+
+  async deleteOwner(ownerEmail) {
+    if (!this.props.id) {
+      throw new Error("Cluster missing an ID");
+    }
+    try {
+      const newOwners = this.props.owners.filter(email => email !== ownerEmail);
+      await firestore.collection("clusters")
+        .doc(this.props.id)
+        .update({owners: newOwners});
+  } catch (error) {
+      console.error("Cannot delete owner", error);
+    }
+
   }
 
 
@@ -130,8 +145,16 @@ export default class ClusterManager extends React.Component {
             <h3 className="col-md-6 cluster-manager__subheading">Owners:</h3>
             <ul className="col-md-6">
               {this.props.owners.map(owner => (
-                <li key={owner}>
+                <li className="cluster-owner-item"
+                  key={owner}>
                   {owner}
+                  <button
+                    type="button"
+                    className="btn"
+                    aria-label="Delete Owner"
+                    onClick={() => this.deleteOwner(owner)}>
+                    &times;
+                  </button>
                 </li>))}
               <li>
                 <SingleInputForm label="+ Add Owner" onSubmit={this.addOwner}>

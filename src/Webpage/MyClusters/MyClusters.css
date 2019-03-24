@@ -12,6 +12,11 @@
 .cluster-manager__heading-buttons {
     font-size: large;
 }
+.cluster-owner-item{
+    display: flex;
+    align-items: center;
+
+}
 @media (min-width: 992px) {
     .cluster-manager__subheading {
         text-align: right;
