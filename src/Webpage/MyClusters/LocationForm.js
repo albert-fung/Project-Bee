@@ -38,13 +38,22 @@ export default class LocationForm extends ReactForm {
     }
   };
 
-  reset = () =>
-    this.setState({
-      editing: false,
-      city: "",
-      province: "",
-      country: ""
-    });
+  reset = () => {
+    if (this.props.initialLocation) {
+      const {city, province, country} = this.props.initialLocation;
+      this.setState ({
+        editing: false,
+        city, province, country
+      });
+    } else {
+       this.setState({
+        editing: false,
+        city: "",
+        province: "",
+        country: ""
+      });
+    }
+  };
 
   render() {
     const {className, initialLocation} = this.props;
