@@ -56,11 +56,11 @@ export default class LocationForm extends ReactForm {
   };
 
   render() {
-    const {className, initialLocation} = this.props;
+    const {initialLocation} = this.props;
     if (this.state.editing) {
       const {city, province, country} = this.state;
-      return <form className={className} onSubmit={this.onSubmit}>
-        <label>
+      return <form className="location-form" onSubmit={this.onSubmit}>
+        <label className="vertical-label">
           City
           <input name="city"
                  value={city}
@@ -68,7 +68,7 @@ export default class LocationForm extends ReactForm {
                  maxLength="100"
                  onChange={this.handleInputChange}/>
         </label>
-        <label>
+        <label className="vertical-label">
           Province
           <input name="province"
                  value={province}
@@ -76,7 +76,7 @@ export default class LocationForm extends ReactForm {
                  maxLength="100"
                  onChange={this.handleInputChange}/>
         </label>
-        <label>
+        <label className="vertical-label">
           Country
           <input name="country"
                  value={country}
@@ -84,15 +84,17 @@ export default class LocationForm extends ReactForm {
                  maxLength="100"
                  onChange={this.handleInputChange}/>
         </label>
-        <button type="submit" className="btn">
-          Save
-        </button>
-        <button type="reset" className="btn" onClick={this.reset}>
-          Cancel
-        </button>
+        <div>
+          <button type="submit" className="btn">
+            Save
+          </button>
+          <button type="reset" className="btn" onClick={this.reset}>
+            Cancel
+          </button>
+        </div>
       </form>
     } else if (!initialLocation) {
-      return <div className={className}>
+      return <div className="location-form">
         No location set
         <button type="button" className="btn" onClick={() => this.setState({editing: true})}>
           Add a location
@@ -100,7 +102,7 @@ export default class LocationForm extends ReactForm {
       </div>
     } else {
       const {city, province, country} = initialLocation;
-      return <div className={className}>
+      return <div className="location-form">
         {city} {province} {country}
         <button type="button" className="btn" onClick={() => this.setState({editing: true})}>
           Edit Location

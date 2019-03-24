@@ -2,6 +2,8 @@ import React from "react";
 import {firestore, fireFieldValue} from "../../Firebase";
 import SingleInputForm from "../../Shared/SingleInputForm";
 import LocationForm from "./LocationForm";
+import {faEdit} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 class HiveBadge extends React.Component {
@@ -73,7 +75,7 @@ export default class ClusterManager extends React.Component {
     if (!this.props.id) {
       throw new Error("Cluster missing an ID");
     }
-    try{
+    try {
       console.log(this.props.id);
       await firestore.collection("clusters")
         .doc(this.props.id).delete();
@@ -86,9 +88,9 @@ export default class ClusterManager extends React.Component {
     if (!this.props.id) {
       throw new Error("Cluster missing an ID");
     }
-    try{
+    try {
       await firestore.collection("clusters")
-        .doc(this.props.id).update({name:clusterName});
+        .doc(this.props.id).update({name: clusterName});
     } catch (error) {
       console.error("Cannot edit cluster", error);
     }
@@ -123,37 +125,39 @@ export default class ClusterManager extends React.Component {
 
   render() {
     if (this.props) {
-      return (<div className="container-fluid cluster-manager">
-        <div className="row">
-          <h2 className="col-xs-8 cluster-manager__heading">
-            {this.props.name}
-          </h2>
-          <div className="col-xs-4 cluster-manager__heading cluster-manager__heading-buttons">
-            <button className="pull-right icon-button" aria-label="Show on map">
-              <i className="fas fa-map-marked"/>
+      return <div className="cluster-manager">
+        <div className="cluster-manager__head">
+          <h2>{this.props.name}</h2>
+
+          <div>
+            <button type="button"
+                    className="btn">
+              <FontAwesomeIcon icon={faEdit}/>
+            </button>
+
+            <button type="button"
+                    className="btn"
+                    aria-label="Delete Cluster"
+                    onClick={this.deleteCluster}>
+              &times;
             </button>
           </div>
-          <button type="button"
-                  className="btn"
-                  aria-label="Delete Cluster"
-                  onClick={this.deleteCluster}>
-            &times;
-          </button>
-          <SingleInputForm label="Edit" onSubmit={this.editCluster}>
-            <input type="text" placeholder="Cluster Name" maxLength="100" autoComplete="off"/>
-          </SingleInputForm>
         </div>
-        <div className="row container-fluid">
 
-          <div className="row col-sm-4">
-            <h3 className="col-md-6 cluster-manager__subheading">Location:</h3>
-            <LocationForm className="col-md-6"
-                          clusterId={this.props.id}
-                          initialLocation={this.props.location}/>
+        <div className="cluster-manager__body">
+          <div>
+            <h3 className="cluster-manager__subheading">
+              Location
+            </h3>
+            <LocationForm
+              clusterId={this.props.id}
+              initialLocation={this.props.location}/>
           </div>
-          <div className="row col-sm-4">
-            <h3 className="col-md-6 cluster-manager__subheading">Hives:</h3>
-            <ul className="col-md-6">
+          <div>
+            <h3 className="cluster-manager__subheading">
+              Hives
+            </h3>
+            <ul className="cluster-manager__body__list">
               {this.props.hives.map(hive =>
                 <HiveBadge
                   key={hive.id} {...hive}
@@ -166,12 +170,14 @@ export default class ClusterManager extends React.Component {
             </ul>
           </div>
 
-          <div className="row col-sm-4">
-            <h3 className="col-md-6 cluster-manager__subheading">Owners:</h3>
-            <ul className="col-md-6">
+          <div>
+            <h3 className="cluster-manager__subheading">
+              Owners
+            </h3>
+            <ul className="cluster-manager__body__list">
               {this.props.owners.map(owner => (
                 <li className="cluster-owner-item"
-                  key={owner}>
+                    key={owner}>
                   {owner}
                   <button
                     type="button"
@@ -189,7 +195,7 @@ export default class ClusterManager extends React.Component {
             </ul>
           </div>
         </div>
-      </div>);
+      </div>;
     } else {
       return (<p>Error</p>)
     }
