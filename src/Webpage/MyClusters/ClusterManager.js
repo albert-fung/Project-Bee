@@ -2,8 +2,9 @@ import React from "react";
 import {firestore, fireFieldValue} from "../../Firebase";
 import SingleInputForm from "../../Shared/SingleInputForm";
 import LocationForm from "./LocationForm";
-import {faEdit} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import ClusterNameForm from "./ClusterNameForm";
 
 
 class HiveBadge extends React.Component {
@@ -33,7 +34,11 @@ export default class ClusterManager extends React.Component {
     this.deleteHive = this.deleteHive.bind(this);
     this.deleteOwner = this.deleteOwner.bind(this);
     this.deleteCluster = this.deleteCluster.bind(this);
-    this.editCluster = this.editCluster.bind(this);
+    this.saveClusterName = this.saveClusterName.bind(this);
+    this.editClusterName = this.editClusterName.bind(this);
+    this.state = {
+      editingClusterName: false
+    };
   }
 
   async addHive(name) {
@@ -84,7 +89,7 @@ export default class ClusterManager extends React.Component {
     }
   }
 
-  async editCluster(clusterName) {
+  async saveClusterName(clusterName) {
     if (!this.props.id) {
       throw new Error("Cluster missing an ID");
     }
@@ -93,6 +98,8 @@ export default class ClusterManager extends React.Component {
         .doc(this.props.id).update({name: clusterName});
     } catch (error) {
       console.error("Cannot edit cluster", error);
+    } finally {
+      this.setState({editingClusterName: false});
     }
   }
 
@@ -120,17 +127,24 @@ export default class ClusterManager extends React.Component {
     } catch (error) {
       console.error("Cannot delete owner", error);
     }
+  }
 
+  editClusterName() {
+    this.setState({editingClusterName: true});
   }
 
   render() {
     if (this.props) {
       return <div className="cluster-manager">
         <div className="cluster-manager__head">
-          <h2>{this.props.name}</h2>
-
+          <ClusterNameForm initialName={this.props.name}
+                           editing={this.state.editingClusterName}
+                           onSubmit={this.saveClusterName}
+                           onRequestCancel={() => this.setState({editingClusterName: false})}/>
           <div>
             <button type="button"
+                    onClick={this.editClusterName}
+                    aria-label="Edit Cluster Name"
                     className="btn">
               <FontAwesomeIcon icon={faEdit}/>
             </button>
@@ -139,7 +153,7 @@ export default class ClusterManager extends React.Component {
                     className="btn"
                     aria-label="Delete Cluster"
                     onClick={this.deleteCluster}>
-              &times;
+              <FontAwesomeIcon icon={faTimes}/>
             </button>
           </div>
         </div>
