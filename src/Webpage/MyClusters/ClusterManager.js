@@ -2,7 +2,7 @@ import React from "react";
 import {firestore, fireFieldValue} from "../../Firebase";
 import SingleInputForm from "../../Shared/SingleInputForm";
 import LocationForm from "./LocationForm";
-import {faEdit, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ClusterNameForm from "./ClusterNameForm";
 import HiveBadge from "./HiveBadge";
@@ -162,7 +162,7 @@ export default class ClusterManager extends React.Component {
                     className="btn"
                     aria-label="Delete Cluster"
                     onClick={this.deleteCluster}>
-              <FontAwesomeIcon icon={faTimes}/>
+              <FontAwesomeIcon icon={faTrash}/>
             </button>
           </div>
         </div>
