@@ -27,15 +27,9 @@
     user-select: none;
 }
 
-.hive--public::after {
-    content: "🐝";
-}
-.hive--private::after {
-    content: "💩";
-}
-
-.btn 
-{ background: #2f3542;
+.btn
+{
+  background: #2f3542;
   color: white;
   padding: 5px 10px;
   margin: 3px;

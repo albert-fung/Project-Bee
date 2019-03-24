@@ -30,6 +30,8 @@ export default class ClusterManager extends React.Component {
     this.addOwner = this.addOwner.bind(this);
     this.deleteHive = this.deleteHive.bind(this);
     this.deleteOwner = this.deleteOwner.bind(this);
+    this.deleteCluster = this.deleteCluster.bind(this);
+    this.editCluster = this.editCluster.bind(this);
   }
 
   async addHive(name) {
@@ -67,6 +69,31 @@ export default class ClusterManager extends React.Component {
     return user.exists;
   }
 
+  async deleteCluster() {
+    if (!this.props.id) {
+      throw new Error("Cluster missing an ID");
+    }
+    try{
+      console.log(this.props.id);
+      await firestore.collection("clusters")
+        .doc(this.props.id).delete();
+    } catch (error) {
+      console.error("Cannot delete cluster", error);
+    }
+  }
+
+  async editCluster(clusterName) {
+    if (!this.props.id) {
+      throw new Error("Cluster missing an ID");
+    }
+    try{
+      await firestore.collection("clusters")
+        .doc(this.props.id).update({name:clusterName});
+    } catch (error) {
+      console.error("Cannot edit cluster", error);
+    }
+  }
+
   async addOwner(email) {
     // Ensure owner for given email exists
     if (!ClusterManager.userExists(email)) {
@@ -94,7 +121,6 @@ export default class ClusterManager extends React.Component {
 
   }
 
-
   render() {
     if (this.props) {
       return (<div className="container-fluid cluster-manager">
@@ -107,6 +133,15 @@ export default class ClusterManager extends React.Component {
               <i className="fas fa-map-marked"/>
             </button>
           </div>
+          <button type="button"
+                  className="btn"
+                  aria-label="Delete Cluster"
+                  onClick={this.deleteCluster}>
+            &times;
+          </button>
+          <SingleInputForm label="Edit" onSubmit={this.editCluster}>
+            <input type="text" placeholder="Cluster Name" maxLength="100" autoComplete="off"/>
+          </SingleInputForm>
         </div>
         <div className="row container-fluid">
 
