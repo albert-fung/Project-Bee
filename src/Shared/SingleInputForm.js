@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactForm from "./ReactForm";
+import {faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default class SingleInputForm extends ReactForm {
   constructor(props) {
@@ -42,14 +44,14 @@ export default class SingleInputForm extends ReactForm {
             type="submit"
             aria-label="Submit"
             className="btn">
-            <i className="fas fa-check"/>
+            <FontAwesomeIcon icon={faCheck}/>
           </button>
           <button
             type="reset"
             className="btn"
             aria-label="Cancel"
             onClick={() => this.setState({open: false, value: ""})}>
-            <i className="fas fa-times"/>
+            <FontAwesomeIcon icon={faTimes}/>
           </button>
         </form>
       );
