@@ -1,6 +1,7 @@
 import React from "react";
 import {firestore, fireFieldValue} from "../../Firebase";
 import SingleInputForm from "../../Shared/SingleInputForm";
+import LocationForm from "./LocationForm";
 
 
 class HiveBadge extends React.Component {
@@ -87,7 +88,7 @@ export default class ClusterManager extends React.Component {
       await firestore.collection("clusters")
         .doc(this.props.id)
         .update({owners: newOwners});
-  } catch (error) {
+    } catch (error) {
       console.error("Cannot delete owner", error);
     }
 
@@ -111,20 +112,9 @@ export default class ClusterManager extends React.Component {
 
           <div className="row col-sm-4">
             <h3 className="col-md-6 cluster-manager__subheading">Location:</h3>
-            <ul className="col-md-6">
-              <li>
-                Ottawa
-              </li>
-              <li>
-                Ontario
-              </li>
-              <li>
-                Canada
-              </li>
-              <li>
-                North America
-              </li>
-            </ul>
+            <LocationForm className="col-md-6"
+                          clusterId={this.props.id}
+                          initialLocation={this.props.location}/>
           </div>
           <div className="row col-sm-4">
             <h3 className="col-md-6 cluster-manager__subheading">Hives:</h3>

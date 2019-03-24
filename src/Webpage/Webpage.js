@@ -8,7 +8,6 @@ import {auth, firestore} from "../Firebase";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFlask,faUsers,faCode,faLock,faUnlock,faBars} from "@fortawesome/free-solid-svg-icons";
 
-
 const LogIn= lazy(()=>import("./Log-In/Log-In"));
 const SignUp= lazy(()=>import("./SignUp/SignUp"));
 
@@ -48,7 +47,7 @@ export default class WebpageContainer extends React.Component {
           ...hive
         }));
     });
-
+    console.log("Updated clusters");
     this.setState({clusters});
   }
 
