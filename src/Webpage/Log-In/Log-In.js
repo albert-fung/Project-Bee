@@ -7,9 +7,6 @@ import ReactForm from "../../Shared/ReactForm";
 import SignIn from '../SignUp/SignUp';
 import * as auth from "../../Authentication";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGoogle,faFacebook,faGithub,faTwitter} from "@fortawesome/free-brands-svg-icons";
-
 const styles = {
   /* Animation for stuttering Log-in-elements */
    input_animation:{
@@ -78,12 +75,6 @@ export default class LogIn extends ReactForm {
                      style={styles.logbtn_animation}/>
             </form>
             <hr/>
-              <div style={styles.vendorbtn_animation} id="round-vendorgroup">
-                <RoundButton symbol={faGoogle} name="G+"/>
-                <RoundButton symbol={faFacebook} name="FB"/>
-                <RoundButton symbol={faTwitter} name="Twitter"/>
-                <RoundButton symbol={faGithub} name="GitHub"/>
-              </div>
             <div className="signup">
               Don't have an account?&nbsp; 
               <Link to="/Sign-Up">Create one </Link>
@@ -91,19 +82,6 @@ export default class LogIn extends ReactForm {
           </div>
         </div>
       </StyleRoot>
-    )
-  }
-}
-
-class RoundButton extends React.Component {
-  render() {
-    return (
-      <div className="roundbtn-container">
-        <button className={"round-vendorbtn " + this.props.color}>
-          <FontAwesomeIcon icon={this.props.symbol} size={"2x"}/>
-        </button>
-        <div className="vendor-name">{this.props.name}</div>
-      </div>
     )
   }
 }
