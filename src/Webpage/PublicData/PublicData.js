@@ -31,6 +31,7 @@ export default class PublicData extends React.Component {
       snapshot.forEach(item =>{
         items[item.id] = item.data()
       })
+      console.log(items);
       this.setState({
         items,
         isLoading:false,
@@ -52,14 +53,17 @@ export default class PublicData extends React.Component {
       let keys = Object.keys(this.state.items);
 
       return(
-        data.map((data,i)=>
-        <DownloadCard 
+        data.map((data,i)=>{
+        let location = typeof data.location === "undefined" ? "" : data.location
+          
+        return <DownloadCard 
           id={keys[i]}
           hives = {data.hives}
           title={data.name} 
-          place="ottawa"
+          place={location.city}
         >
         </DownloadCard>
+        }
     ))
     }
   }
@@ -120,7 +124,7 @@ class DownloadCard extends React.Component {
   /**
    * 
    * @param {Object} data 
-   * Data provided through firebase for specific 
+   * Download data provided through firebase for specific 
    * cluster of a hive  
    * @param {Object} time 
    * Times for the respective data points 
