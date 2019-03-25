@@ -2,10 +2,14 @@ import React from 'react'
 import './OpenSource.css'
 import FirebaseLogo from './Firebase_Logo.png'
 import ArduinoLogo from './Arduino_Logo.png'
-import {fadeIn} from 'react-animations';
+import {fadeIn, fadeInDown} from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
 
 const styles = {
+  animation_1: { 
+    animation:'0.8s',
+    animationName:Radium.keyframes(fadeInDown,'fadeInDown')
+  },
   animation_2: {
     animation: '0.4s',
     animationName: Radium.keyframes(fadeIn, 'fadeIn')
@@ -23,20 +27,32 @@ const styles = {
 export default class OpenSource extends React.Component{
   render(){
     return (
+    <StyleRoot>
       <div className="OpenSource_Container">
-        <OptionContainer 
-          className="Software_Container"
-          title="Software"
-          imgsrc={FirebaseLogo}
-          githubLink="https://github.com/albert-fung/Project-Bee">
-        </OptionContainer>
-        <OptionContainer 
-          className="Hardware_Container"
-          title="Hardware"
-          imgsrc={ArduinoLogo}
-          githubLink="https://github.com/YanuG/project-bee">
-        </OptionContainer>
+        <div className="Subtitle">
+          <div style={styles.animation_1}>
+            <h1>Open Source</h1>
+            Here at Project Bee we pride ourselves in creating an open source product
+            that anyone can easily use. Our Githubs repos will always be public and assistance 
+            from any contributor is easily obtainable through a quick email.
+          </div>
+        </div>  
+        <div className="Options_Container">
+          <OptionContainer 
+            className="Software_Container"
+            title="Software"
+            imgsrc={FirebaseLogo}
+            githubLink="https://github.com/albert-fung/Project-Bee">
+          </OptionContainer>
+          <OptionContainer 
+            className="Hardware_Container"
+            title="Hardware"
+            imgsrc={ArduinoLogo}
+            githubLink="https://github.com/YanuG/project-bee">
+          </OptionContainer>
+        </div>
       </div>
+    </StyleRoot>
     )
   }
 }
