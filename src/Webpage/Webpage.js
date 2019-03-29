@@ -21,11 +21,12 @@ export default class WebpageContainer extends React.Component {
       error: null,
       isLoaded:false,
       user: "",
-      clusters: []
+      clusters: [],
+      dropDownIsOpen: false
     };
     this.logOut = this.logOut.bind(this);
     this.onClustersUpdated = this.onClustersUpdated.bind(this);
-    this.HandleDropdown= this.HandleDropdown.bind(this);
+    this.handleDropDown= this.handleDropDown.bind(this);
     this.LoginLogoutIcon = this.LoginLogoutIcon.bind(this);
   }
 
@@ -64,8 +65,10 @@ export default class WebpageContainer extends React.Component {
           .where("owners", "array-contains", user.email)
           .onSnapshot(this.onClustersUpdated);
       } else {
-        this.setState({user: null,
-        isLoaded:true})
+        this.setState({
+          user: null,
+          isLoaded:true
+        });
       }
     });
   }
@@ -74,14 +77,14 @@ export default class WebpageContainer extends React.Component {
   if (!this.state.isLoaded){
     return null;
   }
-  return this.state.user == null ? 
+  return this.state.user == null ?
     <li>
       <Link className="nav-element white" to="/Log-In">
         <FontAwesomeIcon icon={faLock}/><span>Login</span>
       </Link>
-    </li> 
+    </li>
     :
-    //if user is logged in 
+    //if user is logged in
     <span>
       <li>
         <Link className="nav-element white" to="/My-Hive">
@@ -89,11 +92,10 @@ export default class WebpageContainer extends React.Component {
         </Link>
       </li>
       <li>
-      <Link className="nav-element white" to="/My-Clusters">
-      {/* Todo: unique icon for clusters */}
-        <FontAwesomeIcon icon={faProjectDiagram}/><span>My Clusters</span>
-      </Link>
-    </li>
+        <Link className="nav-element white" to="/My-Clusters">
+          <FontAwesomeIcon icon={faProjectDiagram}/><span>My Clusters</span>
+        </Link>
+      </li>
       <li>
         <button className="nav-element logout-btn white" onClick={this.logOut}>
           <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
@@ -103,14 +105,12 @@ export default class WebpageContainer extends React.Component {
   }
 
   // Toggling dropdown in mobile mode vs desktop mode 
-  HandleDropdown(){
-  var navbar=document.getElementById('nav-menu');
-  navbar.classList === 'nav-menu' ?
-  navbar.classList.add('displaymenumobile'):
-  navbar.classList.remove('displaymenumobile');
+  handleDropDown(){
+    this.setState(({dropDownIsOpen}) => ({dropDownIsOpen: !dropDownIsOpen}));
   }
 
   render() {
+    const {dropDownIsOpen, user} = this.state;
     return (
       <div id="front-page">
         <Router>
@@ -123,9 +123,25 @@ export default class WebpageContainer extends React.Component {
                 <span className="orange">Bee</span>
               </h1>
             </Link>
-              <span onClick={this.HandleDropdown} className="dropdown-btn"><FontAwesomeIcon size={"2x"} icon={faBars}/></span>
-              <ul id="nav-menu" className="nav-menu">
-
+              <button onClick={this.handleDropDown}
+                      aria-label="Navigation options"
+                      type="button"
+                      className="dropdown-btn">
+                <FontAwesomeIcon size={"2x"} icon={faBars}/>
+              </button>
+              <ul id="nav-menu" className={"nav-menu " + (dropDownIsOpen ? "displaymenumobile" : "")}>
+                {user && <>
+                  <li>
+                    <Link className="nav-element white" to="/My-Hive">
+                      <FontAwesomeIcon icon={faPager}/><span>My Hives</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="nav-element white" to="/My-Clusters">
+                      <FontAwesomeIcon icon={faProjectDiagram}/><span>My Clusters</span>
+                    </Link>
+                  </li>
+                </>}
                 <li>
                   <Link className="nav-element white" to="/Public-Data">
                     <FontAwesomeIcon icon={faUsers}/><span>Public Data</span>
@@ -136,19 +152,29 @@ export default class WebpageContainer extends React.Component {
                     <FontAwesomeIcon icon={faCode}/><span>Open Source</span>
                   </Link>
                 </li>
-                {this.LoginLogoutIcon()}
+                {user
+                  ? <li>
+                    <button className="nav-element logout-btn white" onClick={this.logOut}>
+                      <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
+                    </button>
+                  </li>
+                  : <li>
+                    <Link className="nav-element white" to="/Log-In">
+                      <FontAwesomeIcon icon={faLock}/><span>Login</span>
+                    </Link>
+                  </li>}
               </ul>
-             
+
             </nav>
             {/*Routes that the above links point to TODO complete three other pages and connect them */}
             <Route path="/" exact={true} component={LandingPage}/>
             <Route path="/My-Hive" render={() => <MyHives clusters={this.state.clusters}/>}/>
             <Route path="/My-Clusters" render={() => <MyClusters clusters={this.state.clusters}/>}/>
-            <Route path="/Public-Data" render={() => <PublicData></PublicData>}/>
-            <Route path="/Open-Source" render={() => <OpenSource></OpenSource>}/>
+            <Route path="/Public-Data" render={() => <PublicData/>}/>
+            <Route path="/Open-Source" render={() => <OpenSource/>}/>
             <Suspense fallback={<div>loading</div>}>
-              <Route path="/Log-In" component={LogIn}/>
-              <Route path="/Sign-Up" component={SignUp}/>
+              <Route path="/Log-In" render={() => <LogIn/>}/>
+              <Route path="/Sign-Up" component={() => <SignUp/>}/>
             </Suspense>
           </div>
         </Router>

@@ -54,7 +54,9 @@
   display:none;
   float:right;
   margin: 10px 1vw 0 auto;
-  background-color: white;
+  background-color: transparent;
+  color: white;
+  border: none;
 }
 
 .displaynone{ 
