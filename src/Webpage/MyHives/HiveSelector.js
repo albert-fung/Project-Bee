@@ -1,4 +1,4 @@
-import React, {Component}from "react";
+import React, {Component} from "react";
 
 
 export default class HiveSelector extends Component {
@@ -32,10 +32,12 @@ export default class HiveSelector extends Component {
   }
 
   render() {
-    return(<form>
+    return (<form className="hive-selector">
       <label>
         Cluster:
-        <select name="selectedCluster" onChange={this.selectCluster}>
+        <select name="selectedCluster"
+                onChange={this.selectCluster}
+                className="large-select cluster-select">
           <option className="blank-option" disabled selected value/>
           {this.props.clusters.map(cluster =>
             <option key={cluster.id} value={cluster.id}>{cluster.name}</option>)}
@@ -44,11 +46,17 @@ export default class HiveSelector extends Component {
 
       <label>
         Hive:
-        <select name="selectedHive" onChange={this.selectHive}>
-          <option className="blank-option" selected value/>
-          {this.state.hivesList.map(hive =>
-            <option key={hive.id} value={hive.id}>{hive.name}</option>)}
-        </select>
+        {this.state.selectedCluster
+          ? <select name="selectedHive"
+                    onChange={this.selectHive}
+                    className="large-select hive-select">
+            <option className="blank-option" selected value/>
+            {this.state.hivesList.map(hive =>
+              <option key={hive.id} value={hive.id}>{hive.name}</option>)}
+          </select>
+          : <span className="hive-select-placeholder">
+            Select a cluster
+          </span>}
       </label>
     </form>);
   }
