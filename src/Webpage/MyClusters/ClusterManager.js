@@ -187,7 +187,11 @@ export default class ClusterManager extends React.Component {
                   onRequestNameChange={this.saveHiveName}
                   onRequestDelete={this.deleteHive}/>)}
               <li>
-                <SingleInputForm label="+ Add Hive" onSubmit={this.addHive}>
+                <SingleInputForm
+                  buttonClass="btn--dark"
+                  label="+ Add Hive"
+                  onSubmit={this.addHive}>
+
                   <input type="text" placeholder="Hive Name" maxLength="100" autoComplete="off"/>
                 </SingleInputForm>
               </li>
@@ -212,7 +216,10 @@ export default class ClusterManager extends React.Component {
                   </button>
                 </li>))}
               <li>
-                <SingleInputForm label="+ Add Owner" onSubmit={this.addOwner}>
+                <SingleInputForm
+                  buttonClass="btn--dark"
+                  label="+ Add Owner"
+                  onSubmit={this.addOwner}>
                   <input type="email" autoComplete="email"/>
                 </SingleInputForm>
               </li>

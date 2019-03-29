@@ -58,7 +58,8 @@ export default class SingleInputForm extends ReactForm {
     }
     else {
       return (
-        <button className='btn' onClick={() => this.setState({open: true})}>
+        <button className={'btn ' + this.props.buttonClass}
+                onClick={() => this.setState({open: true})}>
           {this.props.label}
         </button>
       );

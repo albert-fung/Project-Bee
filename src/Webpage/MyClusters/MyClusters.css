@@ -3,6 +3,10 @@
     margin-top: 0;
 }
 
+.cluster-manager:first-child {
+    margin-top: 2em;
+}
+
 .cluster-manager {
     box-shadow: 0 0.5em 0.5em #d3d3d3;
     margin-bottom: 1.3em;
@@ -64,7 +68,7 @@
 }
 
 .btn {
-    background: #2f3542;
+    background: #00aced;
     color: white;
     padding: 5px 10px;
     margin: 3px;
@@ -72,4 +76,8 @@
     border-radius: 1000px;
     cursor: pointer;
     -moz-outline-radius: 1000px;
+}
+
+.btn.btn--dark {
+    background-color: #2f3542;
 }

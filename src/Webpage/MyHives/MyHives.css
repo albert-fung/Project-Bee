@@ -29,3 +29,26 @@
 .measurement-tile--value {
     font-size: x-large;
 }
+
+.hive-selector {
+    margin: 2em 0;
+}
+
+.large-select {
+    color: white;
+    background-color: #2f3542;
+    margin: 0 1em;
+    font-size: 1.25em;
+    border: none;
+    border-radius: 1000px;
+    padding: .2em .35em;
+}
+
+.large-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px dodgerblue;
+}
+
+.hive-select-placeholder {
+    margin-left: 0.5em;
+}
