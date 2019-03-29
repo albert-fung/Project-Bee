@@ -103,7 +103,7 @@ export default class WebpageContainer extends React.Component {
   // Toggling dropdown in mobile mode vs desktop mode 
   HandleDropdown(){
   var navbar=document.getElementById('nav-menu');
-  navbar.classList == 'nav-menu' ? 
+  navbar.classList === 'nav-menu' ?
   navbar.classList.add('displaymenumobile'):
   navbar.classList.remove('displaymenumobile');
   }
@@ -122,7 +122,7 @@ export default class WebpageContainer extends React.Component {
               </h1>
             </Link>
               <span onClick={this.HandleDropdown} className="dropdown-btn"><FontAwesomeIcon size={"2x"} icon={faBars}/></span>
-              <ul id="nav-menu" className="nav-menu white">
+              <ul id="nav-menu" className="nav-menu">
 
                 <li>
                   <Link className="nav-element white" to="/Public-Data">
