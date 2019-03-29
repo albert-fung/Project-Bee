@@ -41,12 +41,12 @@ export default class LocationForm extends ReactForm {
   reset = () => {
     if (this.props.initialLocation) {
       const {city, province, country} = this.props.initialLocation;
-      this.setState ({
+      this.setState({
         editing: false,
         city, province, country
       });
     } else {
-       this.setState({
+      this.setState({
         editing: false,
         city: "",
         province: "",
@@ -96,15 +96,21 @@ export default class LocationForm extends ReactForm {
     } else if (!initialLocation) {
       return <div className="location-form">
         No location set
-        <button type="button" className="btn" onClick={() => this.setState({editing: true})}>
-          Add a location
+        <button
+          type="button"
+          className="btn btn--dark"
+          onClick={() => this.setState({editing: true})}>
+          Add a Location
         </button>
       </div>
     } else {
       const {city, province, country} = initialLocation;
       return <div className="location-form">
         {city} {province} {country}
-        <button type="button" className="btn" onClick={() => this.setState({editing: true})}>
+        <button
+          type="button"
+          className="btn btn--dark"
+          onClick={() => this.setState({editing: true})}>
           Edit Location
         </button>
       </div>
