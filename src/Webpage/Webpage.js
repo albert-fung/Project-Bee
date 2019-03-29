@@ -6,7 +6,7 @@ import MyHives from "./MyHives/MyHives";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import {auth, firestore} from "../Firebase";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFlask,faUsers,faCode,faLock,faUnlock,faBars} from "@fortawesome/free-solid-svg-icons";
+import {faUsers,faCode,faLock,faUnlock,faBars, faProjectDiagram, faPager} from "@fortawesome/free-solid-svg-icons";
 
 const LogIn= lazy(()=>import("./Log-In/Log-In"));
 const SignUp= lazy(()=>import("./SignUp/SignUp"));
@@ -74,7 +74,7 @@ export default class WebpageContainer extends React.Component {
   }
   return this.state.user == null ? 
     <li>
-      <Link className="nav-element" to="/Log-In">
+      <Link className="nav-element white" to="/Log-In">
         <FontAwesomeIcon icon={faLock}/><span>Login</span>
       </Link>
     </li> 
@@ -82,18 +82,18 @@ export default class WebpageContainer extends React.Component {
     //if user is logged in 
     <span>
       <li>
-        <Link className="nav-element" to="/My-Hive">
-          <FontAwesomeIcon icon={faFlask}/><span>My Hives</span>
+        <Link className="nav-element white" to="/My-Hive">
+          <FontAwesomeIcon icon={faPager}/><span>My Hives</span>
         </Link>
       </li>
       <li>
-      <Link className="nav-element" to="/My-Clusters">
+      <Link className="nav-element white" to="/My-Clusters">
       {/* Todo: unique icon for clusters */}
-        <FontAwesomeIcon icon={faFlask}/><span>My Clusters</span>
+        <FontAwesomeIcon icon={faProjectDiagram}/><span>My Clusters</span>
       </Link>
     </li>
       <li>
-        <button className="nav-element logout-btn" onClick={this.logOut}>
+        <button className="nav-element logout-btn white" onClick={this.logOut}>
           <FontAwesomeIcon icon={faUnlock}/><span>Logout</span>
         </button>
       </li> 
@@ -117,20 +117,20 @@ export default class WebpageContainer extends React.Component {
             <nav className="nav-bar">
             <Link to="/">
               <h1 className="header text-center">
-                <span className="black">Project</span>
+                <span className="white">Project</span>
                 <span className="orange">Bee</span>
               </h1>
             </Link>
               <span onClick={this.HandleDropdown} className="dropdown-btn"><FontAwesomeIcon size={"2x"} icon={faBars}/></span>
-              <ul id="nav-menu" className="nav-menu">
+              <ul id="nav-menu" className="nav-menu white">
 
                 <li>
-                  <Link className="nav-element" to="/Public-Data">
+                  <Link className="nav-element white" to="/Public-Data">
                     <FontAwesomeIcon icon={faUsers}/><span>Public Data</span>
                   </Link>
                 </li>
                 <li>
-                  <Link className="nav-element" to="/Open-Source">
+                  <Link className="nav-element white" to="/Open-Source">
                     <FontAwesomeIcon icon={faCode}/><span>Open Source</span>
                   </Link>
                 </li>

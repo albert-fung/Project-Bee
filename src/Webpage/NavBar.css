@@ -2,6 +2,7 @@
   display:flex;
   width:100%;
   align-items: center;
+  background-color: #2f3542;
 }
 .header{
   display: inline-block;
@@ -27,11 +28,11 @@
   -o-transition: all 0.25s ease-in-out;
 }
 .nav-element:hover{
-  color:rgba(0, 0, 0, 0.5);
+  color: #00aced;
   text-decoration: none;
 }
 .nav-element:focus{
-  color:black;
+  color: #00aced;
   text-decoration: none;
 }
 /*Log out button */
@@ -53,6 +54,7 @@
   display:none;
   float:right;
   margin: 10px 1vw 0 auto;
+  background-color: white;
 }
 
 .displaynone{ 
