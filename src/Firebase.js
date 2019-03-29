@@ -52,10 +52,6 @@ const auth = firebase.auth();
 
 const firestore = firebase.firestore();
 
-firestore.settings({
-  timestampsInSnapshots: true
-});
-
 const fireFieldValue =  firebase.firestore.FieldValue;
 
 
