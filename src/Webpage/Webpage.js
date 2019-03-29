@@ -10,7 +10,6 @@ import {faFlask,faUsers,faCode,faLock,faUnlock,faBars} from "@fortawesome/free-s
 import PublicData from './PublicData/PublicData';
 import OpenSource from './Open-Source/OpenSource';
 
-
 const LogIn= lazy(()=>import("./Log-In/Log-In"));
 const SignUp= lazy(()=>import("./SignUp/SignUp"));
 
@@ -50,7 +49,7 @@ export default class WebpageContainer extends React.Component {
           ...hive
         }));
     });
-
+    console.log("Updated clusters");
     this.setState({clusters});
   }
 
