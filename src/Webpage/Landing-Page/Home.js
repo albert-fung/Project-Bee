@@ -42,13 +42,8 @@ export default class Landingpage extends React.Component
           <StyleRoot>
             {/* Animation */}
           <div style={styles.heroSubtitleAnimation} id="caption-container">
-            <h1>HELLO</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur 
-              adipiscing elit. Nulla dignissim arcu sed 
-              volutpat aliquet. Phasellus eget mi ac orci 
-              malesuada faucibus. Morbi congue tortor eu 
-              augue posuere, nec cursus velit vestibulum. 
-              Nunc condimentum nulla in nisl eleifend, a </p>
+            <h1>Saving the world one bee at a time!</h1>
+
           </div>
           </StyleRoot>
           <HeroSlider></HeroSlider>
@@ -63,12 +58,10 @@ export default class Landingpage extends React.Component
             </div>
             <h1>About Us!</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur 
-              adipiscing elit. Nulla dignissim arcu sed 
-              volutpat aliquet. Phasellus eget mi ac orci 
-              malesuada faucibus. Morbi congue tortor eu 
-              augue posuere, nec cursus velit vestibulum. 
-              Nunc condimentum nulla in nisl eleifend, a 
+              We're a group of five engineering students at the University of Ottawa
+              completing their honours projects while trying to save the world 
+              one bee at a time! If you'd like to know more about us you're welcome to contact us anytime!
+          
             </p>
           </div>
           </StyleRoot>
@@ -81,12 +74,9 @@ export default class Landingpage extends React.Component
             </div>
             <h1>Our Product.</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur 
-              adipiscing elit. Nulla dignissim arcu sed 
-              volutpat aliquet. Phasellus eget mi ac orci 
-              malesuada faucibus. Morbi congue tortor eu 
-              augue posuere, nec cursus velit vestibulum. 
-              Nunc condimentum nulla in nisl eleifend, a 
+              We're creating a real-time system to monitor a beehives ecosystem to deteremine
+              the causes or signs of Colony Collapse Disorder (CCD). We collect data on temperature, humiditiy, weight, sound
+              and air quality to correlate this to CCD. 
             </p>
           </div>
           </StyleRoot>
@@ -98,12 +88,10 @@ export default class Landingpage extends React.Component
             </div>
             <h1>How we can help you?</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur 
-              adipiscing elit. Nulla dignissim arcu sed 
-              volutpat aliquet. Phasellus eget mi ac orci 
-              malesuada faucibus. Morbi congue tortor eu 
-              augue posuere, nec cursus velit vestibulum. 
-              Nunc condimentum nulla in nisl eleifend, a 
+              If you're a research or a bee keeper we can help!
+              Our public data page holds hours of collected data 
+              provided in CSV format. We also provide all of our software and hardware to be 
+              open source so you'll be able to create your own Project Bee as well!
             </p>
           </div>
            </StyleRoot>

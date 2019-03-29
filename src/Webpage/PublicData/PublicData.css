@@ -1,0 +1,57 @@
+#PublicData_container { 
+  margin: 5%;
+}
+
+#DownloadCard_container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin:5% auto;
+  width:90%;
+  border-radius:15px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1)
+}
+#DownloadCard_container > h2 { 
+  margin-bottom:0;
+  margin-left: 5%;
+  margin-right: 5%;
+  text-align: center;
+}
+#DownloadCard_container > h4 { 
+  margin-top:0;
+}
+#DownloadCard_container > button { 
+  margin: 0% 0 5% 0;
+  padding:4% 8%;
+  border-radius:10px;
+  outline:none;
+  border:none;
+  color:white;
+  background-color: #039BE5;
+}
+.Filter_input { 
+  margin:10px 0;
+  outline:none;
+  border:none;
+  border-radius:50px;
+  border:2px solid rgba(0, 0, 0, 0.2);
+  transition: all .5s;
+}
+.Filter_input:focus { 
+  box-shadow: 0 0 5px rgb(35, 89, 236);
+  border: 2px solid rgba(25, 89, 236, 1);
+}
+#DownloadCard_container > select { 
+  margin: auto 0 10px 0;
+}
+.card_rows { 
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-auto-rows: 1fr;
+}
+
+.Hive-select {
+  width:40%;
+  margin-bottom: 2%;
+  overflow-wrap: break-word;
+}

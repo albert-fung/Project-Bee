@@ -1,3 +1,6 @@
+html {
+  overflow-y:scroll;
+}
 body, html, #root,#front-page,#landing-page,#Router-container {
     width:100%;height:100%;
     background-color:#f8fafb;
