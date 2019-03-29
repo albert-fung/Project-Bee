@@ -1,0 +1,54 @@
+.OpenSource_Container{
+  height:calc(100% - 100px);
+  margin-bottom:5%;
+}
+.Subtitle { 
+  text-align: center;
+  background-color:rgba(0, 0, 0, 0.015);
+  padding:4% 30%;
+  margin:1% 0 ;
+}
+.Subtitle > h1 {
+  margin-top:10px;
+}
+.Options_Container {
+  width:100%;
+  display:flex;
+  justify-content: space-around;
+}
+.Options_Container > div {
+  display:flex;
+}
+.Hardware_Container > img {
+  width:200px;
+}
+
+.Software_Container > img {
+  height:200px;
+}
+
+
+.Software_Container,
+.Hardware_Container {
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  margin:auto;
+  align-items:center;
+}
+
+.Option_Container_btn {
+  margin-top:15px;
+  padding:15px 20px;
+  border-radius:15px;
+  background-color:#03aafc;
+  color:white;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.1);
+  border:none;
+  transition: all 0.25s;
+}
+
+.Option_Container_btn:hover {
+  background-color:#029fee;
+  transform: translateY(-7px);
+}

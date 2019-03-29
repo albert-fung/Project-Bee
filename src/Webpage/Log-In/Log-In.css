@@ -1,7 +1,6 @@
 #Input-Container{ 
   box-shadow: 0px 0px 56px 7px rgba(224,224,224,1);
   width:25vw; min-width:300px; 
-  height: 60vh; min-height:400px; max-height:450px;
   margin:30px auto 30px auto;
   background-color:rgb(245, 245, 245);
   border-radius: 5px;
@@ -60,55 +59,6 @@ hr {
   width:60%;
 }
 
-/*CSS for vendor buttons at the bottom*/
-.roundbtn-container{
-  display:inline-block;
-  margin: 0 10px 20px 10px;
-  text-align: center;
+.signup {
+padding-bottom:50px;
 }
-
-.round-vendorbtn{
-  position: relative;
-  border-radius: 50%;
-  height:50px;width:50px;
-  border:none;
-  background-color:white;
-  transition:all 0.30s ease-in-out;
-  -webkit-transition: all 0.30s ease-in-out;
-  -moz-transition: all 0.30s ease-in-out;
-  -ms-transition: all 0.30s ease-in-out;
-  -o-transition: all 0.30s ease-in-out;
-}
-.round-vendorbtn > i {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.round-vendorbtn:focus{
-  outline: none;
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgb(35, 89, 236);
-  border: 2px solid rgba(25, 89, 236, 1);
-}
-#round-vendorgroup{
-  display:flex;
-  justify-content: space-evenly;
-}
-.vendor-name{
-  font-size:0.8em;
-  padding-top:3px;
-  color:rgba(0, 0, 0, 0.6);
-}
-
-/*Colors for vendor button*/
-.fa-google{
-  color:red;
-}
-.fa-facebook{
-  color:#3b5998;
-}
-.fa-twitter{
-  color:#00aced;
-}
-
