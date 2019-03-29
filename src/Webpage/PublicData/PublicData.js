@@ -94,6 +94,7 @@ export default class PublicData extends React.Component {
     return(
       <div id="PublicData_container">
         <h2>Public Hives</h2>
+        Filter by Location:<br></br>
         <input className="Filter_input" onChange={(e)=>this.filterHives(e)}></input>
         <div className="card_rows">
           {this.CreateDownloadCards()}

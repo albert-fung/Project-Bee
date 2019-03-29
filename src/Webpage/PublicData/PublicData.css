@@ -29,6 +29,18 @@
   color:white;
   background-color: #039BE5;
 }
+.Filter_input { 
+  margin:10px 0;
+  outline:none;
+  border:none;
+  border-radius:50px;
+  border:2px solid rgba(0, 0, 0, 0.2);
+  transition: all .5s;
+}
+.Filter_input:focus { 
+  box-shadow: 0 0 5px rgb(35, 89, 236);
+  border: 2px solid rgba(25, 89, 236, 1);
+}
 #DownloadCard_container > select { 
   margin: auto 0 10px 0;
 }

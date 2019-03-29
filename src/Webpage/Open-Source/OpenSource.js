@@ -6,15 +6,12 @@ import {fadeIn, fadeInDown} from 'react-animations';
 import Radium, {StyleRoot} from 'radium';
 
 const styles = {
-  animation_1: { 
-    animation:'0.8s',
-    animationName:Radium.keyframes(fadeInDown,'fadeInDown')
-  },
+
   animation_2: {
     animation: '0.4s',
     animationName: Radium.keyframes(fadeIn, 'fadeIn')
   },
-  animation_2:{
+  animation_1:{
       animation: 'x .8s',
       animationName: Radium.keyframes(fadeIn, 'fadeIn')
     },
