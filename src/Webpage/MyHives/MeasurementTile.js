@@ -13,7 +13,7 @@ export default class MeasurementTile extends Component {
       this.props.label;
 
     return (<button
-      className={`measurement-tile col-sm-3 col-md-3 col-lg-2 ${this.props.icon} ${colorClass} ${disabledClass}`}
+      className={`measurement-tile ${this.props.icon} ${colorClass} ${disabledClass}`}
       type="button"
       disabled={this.props.disabled}
       onClick={this.props.onClickMeasurement}

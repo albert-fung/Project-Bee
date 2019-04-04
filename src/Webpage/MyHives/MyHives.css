@@ -1,4 +1,11 @@
+.measurement-tile__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .measurement-tile {
+    width: 100%;
     background-color: #2f3542;
     text-align: center;
     color: white;
@@ -7,15 +14,36 @@
     transition-property: transform, box-shadow;
 
 }
+
+@media only screen and (min-width: 500px) {
+    .measurement-tile {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .measurement-tile {
+        width: 33.333%;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .measurement-tile {
+        width: 20%;
+    }
+}
+
 .measurement-tile:hover {
     transform: scale(1.1, 1.1);
     z-index: 1;
-    box-shadow: 5px 5px 5px rgba(20,20,20,.2);
+    box-shadow: 5px 5px 5px rgba(20, 20, 20, .2);
 }
+
 .measurement-tile--disabled {
     background-color: grey;
 
 }
+
 .measurement-tile.measurement-tile--disabled:hover {
     transform: none;
     box-shadow: none;
@@ -24,8 +52,9 @@
 
 .measurement-tile.measurement-tile--selected {
     background-color: #ffa502;
-    text-shadow: 2px 2px 5px rgba(20,20,20,.1);
+    text-shadow: 2px 2px 5px rgba(20, 20, 20, .1);
 }
+
 .measurement-tile--value {
     font-size: x-large;
 }
