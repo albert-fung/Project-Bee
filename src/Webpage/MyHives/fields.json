@@ -12,10 +12,6 @@
     "label": "Frequency",
     "unit": "KHz"
   },
-  "mass": {
-    "label": "Weight",
-    "unit": "Kg"
-  },
   "bees": {
     "label": "Bee Count",
     "unit": "🐝"
