@@ -9,7 +9,7 @@ export default class RecentMeasurements extends Component {
   }
 
   render() {
-    return <div className="row">
+    return <div className="measurement-tile__row">
       {Object.entries(fields).map(([field, options]) =>
         <MeasurementTile
           key={field}
